@@ -1,0 +1,21 @@
+.footerContainer {
+  background-color: #191919;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  height: 92px;
+
+  .socialLinks {
+    margin-bottom: 0.5rem;
+
+    a {
+      color: #fff;
+      margin: 0 0.5rem;
+      text-decoration: none;
+
+      &:hover {
+        color: #c4145a;
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+.sidebarContainer {
+  height: calc(100vh - 64px - 92px); /* на всю висоту вікна */
+  width: 400px;  /* фіксована ширина */
+  border-left: 1px solid #c4145a;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  background-color: #292929;
+
+}
+
+.tabs {
+  display: flex;
+  margin-bottom: 1rem;
+
+  button {
+    flex: 1;
+    background: none;
+    border: none;
+    color: #ccc;
+    font-weight: 600;
+    padding: 0.5rem;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+
+    &.activeTab {
+      color: #fff;
+      border-bottom: 2px solid #c4145a;
+    }
+
+    &:hover {
+      color: #c4145a;
+    }
+  }
+}

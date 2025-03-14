@@ -1,0 +1,78 @@
+.authForm {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border: 1px solid #c4145a;
+  margin-top: 1rem;
+  color: #fff;
+  background-color: #202020;
+
+
+  h2 {
+    margin-bottom: 1rem;
+    color: #c4145a;
+    font-weight: 700;
+  }
+
+  label {
+    margin: 0.5rem 0 0.2rem;
+    font-weight: 600;
+  }
+
+  input {
+    padding: 0.5rem;
+    background-color: #333;
+    border: 1px solid #666;
+    color: #fff;
+    margin-bottom: 1rem;
+    outline: none;
+
+    &:focus {
+      border-color: #c4145a;
+    }
+  }
+
+  button {
+    margin-top: 1rem;
+    background-color: #c4145a;
+    color: #fff;
+    border: none;
+    padding: 0.6rem;
+    cursor: pointer;
+    font-weight: 600;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &:hover:not(:disabled) {
+      background-color: #a6134f;
+    }
+  }
+}
+
+.flexRow {
+  display: flex;
+  gap: 1rem;
+
+  > div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.error {
+  background-color: #ff3b3b;
+  color: #fff;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.success {
+  background-color: #1e7e34;
+  color: #fff;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}

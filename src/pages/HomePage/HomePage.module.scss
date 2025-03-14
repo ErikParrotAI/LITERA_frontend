@@ -1,0 +1,13 @@
+.homeContainer {
+  display: flex;
+
+  .leftContent {
+    flex: 1;
+    background-color: #1f1f1f;
+  }
+
+  .rightSidebar {
+    width: auto;
+    height: 100%;
+  }
+}

@@ -1,0 +1,38 @@
+.quoteContainer {
+  display: flex;            // додано для активації flex-контейнера
+  flex-direction: column;   // вміст буде вирівнюватись вертикально
+  justify-content: center;  // вирівнювання по вертикалі
+  align-items: center;
+
+  width: 100%;
+  height: 200px;
+  margin: 0;
+  padding: 2rem;
+  color: #fff;
+  text-align: center;
+
+  background-color: #4c4c4b;
+  background-image: url('../../../assets/quote_bg.png');
+  background-blend-mode: multiply;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  h2 {
+    color: #c4145a;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  blockquote {
+    font-size: 1.2rem;
+    font-style: italic;
+    margin: 0.5rem 0;
+  }
+
+  .author {
+    margin-top: 0.5rem;
+    opacity: 0.8;
+    font-style: italic;
+  }
+}

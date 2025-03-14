@@ -1,0 +1,15 @@
+.formTitle {
+  margin-bottom: 1rem;
+  color: #c4145a;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.twoColumns {
+  display: flex;
+  gap: 1rem;
+  .ant-form-item {
+    flex: 1;
+  }
+}
