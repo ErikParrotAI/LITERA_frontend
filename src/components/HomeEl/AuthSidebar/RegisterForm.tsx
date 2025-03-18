@@ -1,6 +1,6 @@
 // src/pages/AuthSidebar/RegisterForm.tsx
 import React, { useState } from 'react';
-import api from '../../../api';
+import axiosInstance from '../../../api/axiosInstance';
 import styles from './forms.module.scss';
 import { message } from 'antd';
 
@@ -61,7 +61,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ switchToLogin }) => {
 
         try {
             // Виклик API для реєстрації (POST /api/users/)
-            await api.post('/accounts/users/', {
+            await axiosInstance.post('/accounts/users/', {
                 username: values.username,
                 first_name: values.firstName,
                 last_name: values.lastName,

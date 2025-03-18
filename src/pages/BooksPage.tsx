@@ -2,11 +2,11 @@
 import React, { useEffect } from 'react';
 import { List, Spin, message } from 'antd';
 import { useQuery } from '@tanstack/react-query';
-import api from '../api';
+import axiosInstance from '../api/axiosInstance';
 import BookCard, { Book } from '../components/BookCard.tsx';
 
 const fetchBooks = async (): Promise<Book[]> => {
-    const { data } = await api.get('/library/books/');
+    const { data } = await axiosInstance.get('/library/books/');
     return data;
 };
 

@@ -34,7 +34,7 @@ export const useLogout = () => {
         },
         onSuccess: () => {
             logout();
-            // @ts-ignore
+            // @ts-expect-error Expected unknown
             queryClient.removeQueries(['me']);
             localStorage.removeItem('refreshToken');
         },
