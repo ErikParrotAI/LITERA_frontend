@@ -7,10 +7,10 @@ export interface IUser {
 
     phone_number?: string;
 
-    x_link?: URL;
-    instagram_link?: URL;
-    telegram_link?: URL;
-    facebook_link?: URL;
+    x_link?: URL | null;
+    instagram_link?: URL | null;
+    telegram_link?: URL | null;
+    facebook_link?: URL | null;
 
     avatar_url?: string;
 }
