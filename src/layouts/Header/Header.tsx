@@ -7,7 +7,7 @@ import styles from './Header.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Header: React.FC = () => {
-    const { data: user, isLoading } = useUser();
+    const { user, isLoading } = useUser();
     const navigate = useNavigate();
     const { mutate: logout } = useLogout();
 
