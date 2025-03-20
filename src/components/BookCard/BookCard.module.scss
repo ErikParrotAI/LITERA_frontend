@@ -1,0 +1,26 @@
+// src/components/BookCard/BookCard.module.scss
+
+@import '../../styles/variables'; // якщо у вас є спільні змінні
+
+.card {
+  background-color: $card-background; // приклад використання змінної
+  border-radius: 8px;
+
+  // Перезапис стилів Ant Design, якщо потрібно
+  .ant-card-head-title {
+    color: $accent;
+    font-size: 1.5rem;
+  }
+
+  // Вміст
+  p {
+    color: $text-color;
+    margin: 0.25rem 0;
+  }
+
+  // Ефект ховера
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+}

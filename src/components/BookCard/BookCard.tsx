@@ -1,5 +1,6 @@
-// src/components/BookCard.tsx
+// src/components/BookCard/BookCard.tsx
 import React from 'react';
+import styles from './BookCard.module.scss';
 import { Card } from 'antd';
 
 export interface Author {
@@ -20,7 +21,7 @@ interface BookCardProps {
 
 const BookCard: React.FC<BookCardProps> = ({ book }) => {
     return (
-        <Card title={book.name}>
+        <Card className={styles.card} title={book.name}>
             <p>
                 <strong>Автор(и): </strong>
                 {book.authors.map((author) => author.full_name).join(', ')}

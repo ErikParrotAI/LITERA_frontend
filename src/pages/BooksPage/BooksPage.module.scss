@@ -1,0 +1,36 @@
+// src/pages/BooksPage/BooksPage.module.scss
+
+@import '../../styles/variables'; // якщо є файл зі змінними
+
+.pageContainer {
+  background-color: $background;
+  color: $text-color;
+  min-height: 100vh;
+  padding: 2rem;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: $accent;
+  text-shadow: 0 0 10px $accent;
+}
+
+.listContainer {
+  background-color: transparent; // або $background, якщо хочете інший відтінок
+  // АнтД List сам робить grid, але ми можемо додатково стилізувати
+}
+
+.listItem {
+  // Додаткові стилі для кожного елемента списку
+  // (картка BookCard може мати власні стилі у BookCard.module.scss)
+  transition: transform 0.3s, box-shadow 0.3s;
+
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+}
