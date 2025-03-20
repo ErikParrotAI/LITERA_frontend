@@ -21,7 +21,7 @@ export const useUser = () => {
         queryKey: ['me'],
         queryFn: fetchUser,
         enabled: Boolean(token),
-        staleTime: 5 * 60 * 1000,
+        staleTime: 60 * 60 * 1000,
         refetchOnWindowFocus: true,
     });
 
