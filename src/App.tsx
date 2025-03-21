@@ -3,8 +3,8 @@ import HomePage from './pages/HomePage/HomePage.tsx';
 import BooksPage from './pages/BooksPage/BooksPage.tsx';
 import MainLayout from "./layouts/MainLayout/MainLayout.tsx";
 import NotFound from "./pages/not-found.tsx";
+import UserPage from "./pages/UserPage/UserPage.tsx";
 import ProfilePage from "./components/ProfilePage.tsx";
-
 
 function App() {
     return (
@@ -12,6 +12,7 @@ function App() {
             <Route path="/" element={<MainLayout/>}>
                 <Route index element={<HomePage/>}/>
                 <Route path="books" element={<BooksPage/>}/>
+                <Route path="profile" element={<UserPage/>}/>
                 <Route path="settings" element={<ProfilePage/>}/>
                 <Route path='*' element={<NotFound/>}/>
             </Route>
