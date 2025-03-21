@@ -4,7 +4,7 @@ import BooksPage from './pages/BooksPage/BooksPage.tsx';
 import MainLayout from "./layouts/MainLayout/MainLayout.tsx";
 import NotFound from "./pages/not-found.tsx";
 import UserPage from "./pages/UserPage/UserPage.tsx";
-import ProfilePage from "./components/ProfilePage.tsx";
+import ProfilePage from "./components/ProfilePage/ProfilePage.tsx";
 import MapPage from "./pages/MapPage/MapPage.tsx";
 
 
