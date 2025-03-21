@@ -16,7 +16,7 @@ const MapPage: React.FC = () => {
     const [selectedLocationName, setSelectedLocationName] = useState<string>('');
     const [showBookList, setShowBookList] = useState(false);
 
-    const hidePopupTimeout = React.useRef<NodeJS.Timeout | null>(null);
+    const hidePopupTimeout = React.useRef<number | null>(null);
 
     // Завантаження локацій із бекенду з параметром пошуку
     const params: LocationQueryParams = { search: searchQuery };

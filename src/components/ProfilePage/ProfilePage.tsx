@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useUser } from '../hooks/useUser';
-import { IUser } from '../interfaces/IUser';
+import { useUser } from '../../hooks/useUser.ts';
+import { IUser } from '../../interfaces/IUser.ts';
 import styles from './ProfilePage.module.scss';
 
 // Helper functions to convert URL <-> string

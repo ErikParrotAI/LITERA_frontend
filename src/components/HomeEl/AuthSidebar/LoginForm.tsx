@@ -19,6 +19,7 @@ const LoginForm: React.FC = () => {
 
     return (
         <form className={styles.authForm} onSubmit={handleSubmit}>
+            <h2>Увійти</h2>
             <input
                 type="email"
                 name="email"

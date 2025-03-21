@@ -1,3 +1,4 @@
+// src/components/Header/Header.tsx
 import React from 'react';
 import { useUser } from '../../hooks/useUser';
 import { useLogout } from '../../hooks/useAuth';
@@ -27,6 +28,11 @@ const Header: React.FC = () => {
         }
     };
 
+    // При натисканні кнопок тепер перенаправляємо на головну сторінку з query-параметром auth
+    const handleAuthClick = (authType: 'login' | 'register') => {
+        navigate(`/?auth=${authType}`);
+    };
+
     return (
         <div className={styles.headerContainer}>
             <div className={styles.logo}>LITERA</div>
@@ -46,14 +52,10 @@ const Header: React.FC = () => {
                     </Dropdown>
                 ) : (
                     <>
-                        <Button
-                            type="primary"
-                            onClick={() => navigate('/')}
-                            style={{ marginRight: 8 }}
-                        >
+                        <Button type="primary" onClick={() => handleAuthClick('login')} style={{ marginRight: 8 }}>
                             Увійти
                         </Button>
-                        <Button onClick={() => navigate('/')}>
+                        <Button onClick={() => handleAuthClick('register')}>
                             Зареєструватися
                         </Button>
                     </>

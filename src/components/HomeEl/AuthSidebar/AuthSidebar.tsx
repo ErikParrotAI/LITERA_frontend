@@ -1,40 +1,50 @@
 // src/pages/AuthSidebar/AuthSidebar.tsx
 import React, { useState } from 'react';
-import LoginForm from './LoginForm.tsx';
-import RegisterForm from './RegisterForm.tsx';
+import LoginForm from './LoginForm';
+import RegisterForm from './RegisterForm';
+import { CloseOutlined } from '@ant-design/icons';
 import styles from './AuthSidebar.module.scss';
 
 type AuthMode = 'login' | 'register';
 
-const AuthSidebar: React.FC = () => {
-    const [authMode, setAuthMode] = useState<AuthMode>('login');
+interface AuthSidebarProps {
+    onClose: () => void;
+    initialMode?: AuthMode;
+}
 
-    const switchToLogin = () => {
-        setAuthMode('login');
-    };
+const AuthSidebar: React.FC<AuthSidebarProps> = ({ onClose, initialMode = 'login' }) => {
+    const [authMode, setAuthMode] = useState<AuthMode>(initialMode);
+
+    const switchToLogin = () => setAuthMode('login');
 
     return (
         <div className={styles.sidebarContainer}>
-            <div className={styles.tabs}>
-                <button
-                    className={authMode === 'login' ? styles.activeTab : ''}
-                    onClick={() => setAuthMode('login')}
-                >
-                    Авторизація
-                </button>
-                <button
-                    className={authMode === 'register' ? styles.activeTab : ''}
-                    onClick={() => setAuthMode('register')}
-                >
-                    Реєстрація
+            <div className={styles.header}>
+                <div className={styles.tabs}>
+                    <button
+                        className={`${styles.tabButton} ${authMode === 'login' ? styles.activeTab : ''}`}
+                        onClick={() => setAuthMode('login')}
+                    >
+                        Авторизація
+                    </button>
+                    <button
+                        className={`${styles.tabButton} ${authMode === 'register' ? styles.activeTab : ''}`}
+                        onClick={() => setAuthMode('register')}
+                    >
+                        Реєстрація
+                    </button>
+                </div>
+                <button className={styles.closeButton} onClick={onClose}>
+                    <CloseOutlined />
                 </button>
             </div>
-
-            {authMode === 'login' ? (
-                <LoginForm />
-            ) : (
-                <RegisterForm switchToLogin={switchToLogin} />
-            )}
+            <div className={styles.content}>
+                {authMode === 'login' ? (
+                    <LoginForm />
+                ) : (
+                    <RegisterForm switchToLogin={switchToLogin} />
+                )}
+            </div>
         </div>
     );
 };
