@@ -5,12 +5,15 @@ import MainLayout from "./layouts/MainLayout/MainLayout.tsx";
 import NotFound from "./pages/not-found.tsx";
 import UserPage from "./pages/UserPage/UserPage.tsx";
 import ProfilePage from "./components/ProfilePage.tsx";
+import MapPage from "./pages/MapPage/MapPage.tsx";
+
 
 function App() {
     return (
         <Routes>
             <Route path="/" element={<MainLayout/>}>
                 <Route index element={<HomePage/>}/>
+                <Route path="locations" element={<MapPage/>}/>
                 <Route path="books" element={<BooksPage/>}/>
                 <Route path="profile" element={<UserPage/>}/>
                 <Route path="settings" element={<ProfilePage/>}/>

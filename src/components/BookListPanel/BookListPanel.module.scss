@@ -1,0 +1,61 @@
+// src/components/BookListPanel/BookListPanel.module.scss
+@import '../../styles/variables';
+
+.panel {
+  width: 37%;
+  background-color: $card-background;
+  color: $text-color;
+  padding: 1rem;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  h2 {
+    color: #ea0e46;
+    margin: 0;
+    font-size: 1.5rem;
+  }
+}
+
+.closeButton {
+  background-color: $accent;
+  border: none;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: $secondary-accent;
+  }
+}
+
+.content {
+  .bookItem {
+    background-color: $hover-bg;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+
+    h4 {
+      margin: 0 0 0.25rem 0;
+      color: $accent;
+    }
+
+    p {
+      margin: 0.25rem 0;
+      font-size: 14px;
+    }
+  }
+}

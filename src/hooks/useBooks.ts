@@ -14,6 +14,7 @@ export interface IBookQueryParams {
     min_pages?: number;      // сторінок від
     max_pages?: number;      // сторінок до
     ordering?: string;       // поле сортування (наприклад: 'name', '-year_of_publication', ...)
+    location_id?: number;
 }
 
 /**
