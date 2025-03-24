@@ -1,21 +1,32 @@
+// src/components/Footer/Footer.module.scss
+@import '../../styles/variables';
+
 .footerContainer {
-  background-color: #191919;
-  color: #fff;
+  background-color: $color-paper;
+  border-top: 2px solid $color-accent;
+  padding: 1rem 2rem;
   text-align: center;
-  padding: 1rem;
-  height: 92px;
+  box-shadow: $box-shadow;
+}
 
-  .socialLinks {
-    margin-bottom: 0.5rem;
+.socialLinks {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 0.5rem;
 
-    a {
-      color: #fff;
-      margin: 0 0.5rem;
-      text-decoration: none;
+  a {
+    color: $color-text;
+    font-weight: bold;
+    transition: color $transition-speed;
 
-      &:hover {
-        color: #c4145a;
-      }
+    &:hover {
+      color: $color-accent-dark;
     }
   }
+}
+
+copyright {
+  color: $color-text;
+  font-size: 0.9rem;
 }

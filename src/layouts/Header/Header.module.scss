@@ -1,31 +1,87 @@
+// src/components/Header/Header.module.scss
+@import '../../styles/variables';
+
 .headerContainer {
   display: flex;
   align-items: center;
-  background-color: #191919;
-  padding: 0 1rem;
-  height: 64px;
+  justify-content: space-between;
+  background-color: $color-paper;
+  padding: 0.75rem 1.5rem;
+  box-shadow: $box-shadow;
+  border-bottom: 2px solid $color-accent;
+}
 
-  .logo {
-    font-size: 1.5rem;
-    color: #c4145a;
-    margin-right: 2rem;
+.logo {
+  font-family: $font-headers;
+  font-size: 1.8rem;
+  color: $color-text;
+  cursor: pointer;
+
+  &:hover {
+    color: $color-accent-dark;
   }
+}
 
-  .nav {
-    a {
-      color: #fff;
-      margin-right: 1rem;
-      text-decoration: none;
+.navLinks {
+  display: flex;
+  gap: 1.5rem;
 
-      &:hover {
-        color: #c4145a;
-      }
+  a {
+    font-size: 1rem;
+    color: $color-text;
+    padding: 0.25rem 0;
+    transition: color $transition-speed, border-bottom $transition-speed;
+
+    &.activeLink {
+      color: $color-accent;
+      border-bottom: 2px solid $color-accent;
+    }
+
+    &:hover {
+      color: $color-accent-dark;
     }
   }
+}
 
-  .userSection {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
+.authControls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.loadingText {
+  color: $color-text;
+  font-size: 0.9rem;
+}
+
+// Кнопки
+.dropdownBtn {
+  color: $color-text;
+  &:hover {
+    color: $color-accent-dark;
+  }
+}
+
+.authButton {
+  background-color: $color-accent;
+  color: $color-text-light;
+  border: none;
+  transition: background-color $transition-speed;
+
+  &:hover {
+    background-color: $color-accent-dark;
+    color: $color-text-light;
+  }
+}
+
+.authButtonOutline {
+  background-color: transparent;
+  color: $color-accent;
+  border: 2px solid $color-accent;
+  transition: background-color $transition-speed, color $transition-speed;
+
+  &:hover {
+    background-color: $color-accent;
+    color: $color-text-light;
   }
 }

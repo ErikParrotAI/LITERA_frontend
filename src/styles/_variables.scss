@@ -1,0 +1,32 @@
+// src/styles/_variables.scss
+
+// Основні змінні для темного модерн-максималізму
+
+$background: #121212 !default;       // Основний фон сторінки
+$text-color: #f5f5f5 !default;         // Основний колір тексту
+$accent: #bb86fc !default;             // Яскравий акцентний колір (пурпурний)
+$secondary-accent: #03dac6 !default;    // Додатковий акцент (неоновий зелено-блакитний)
+$card-background: #1e1e1e !default;     // Фон для карток
+$border-color: #333333 !default;       // Колір рамок
+$hover-bg: #2a2a2a !default;           // Фон при наведенні
+
+// src/styles/_variables.scss
+
+// ---- Кольорова палітра (coffee & beige) ----
+$color-bg: #f7f2e7;          // Основний фон (ніжний беж)
+$color-paper: #efe5d5;       // Колір «паперу»
+$color-accent: #c6a67a;      // Акцент (коричнево-золотистий)
+$color-accent-dark: #8f7c66; // Темніший акцент
+$color-text: #3f2f21;        // Основний текст (темно-коричневий)
+$color-text-light: #fff;     // Світлий текст
+
+// ---- Шрифти ----
+$font-base: 'Georgia', serif;
+$font-headers: 'Book Antiqua', Palatino, serif;
+
+// ---- Інші змінні ----
+$border-radius: 6px;       // Заокруглення для блоків
+$transition-speed: 0.3s;   // Швидкість переходів (hover тощо)
+
+// ---- Тіні ----
+$box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
