@@ -1,5 +1,5 @@
 // src/components/SearchBar/SearchBar.module.scss
-@import '../../styles/_variables';
+@use '../../styles/_variables' as *;
 
 .searchContainer {
   display: flex;

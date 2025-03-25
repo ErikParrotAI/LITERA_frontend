@@ -1,5 +1,5 @@
 // src/components/HomeEl/InfoBlock/InfoBlock.module.scss
-@import '../../../styles/_variables';
+@use '../../../styles/_variables' as *;
 @import url('https://fonts.googleapis.com/css2?family=Marck+Script&display=swap');
 
 .infoBlock {

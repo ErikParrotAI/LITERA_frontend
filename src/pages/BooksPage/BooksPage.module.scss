@@ -1,6 +1,6 @@
 // src/pages/BooksPage/BooksPage.module.scss
 
-@import '../../styles/variables'; // якщо є файл зі змінними
+@use '../../styles/variables' as *; // якщо є файл зі змінними
 
 .pageContainer {
   background-color: $background;

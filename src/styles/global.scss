@@ -1,5 +1,5 @@
 // src/styles/global.scss
-@import 'variables'; // Підключаємо _variables.scss
+@use 'variables' as *; // Підключаємо _variables.scss
 
 html, body {
   margin: 0;

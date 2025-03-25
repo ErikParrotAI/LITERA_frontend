@@ -1,5 +1,5 @@
 // src/pages/HomePage/HomePage.module.scss
-@import '../../styles/_variables';
+@use '../../styles/_variables' as *;
 
 .homeContainer {
   display: flex;

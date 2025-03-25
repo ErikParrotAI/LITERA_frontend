@@ -1,6 +1,6 @@
 // src/components/BookCard/BookCard.module.scss
 
-@import '../../styles/variables'; // якщо у вас є спільні змінні
+@use '../../styles/variables' as *; // якщо у вас є спільні змінні
 
 .card {
   background-color: $card-background; // приклад використання змінної

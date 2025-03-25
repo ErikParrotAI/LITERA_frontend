@@ -1,6 +1,6 @@
 // src/components/BooksFilters/BooksFilters.module.scss
 
-@import '../../styles/variables'; // приклад спільних змінних
+@use '../../styles/variables' as *; // приклад спільних змінних
 
 .filtersContainer {
   display: flex;

@@ -1,5 +1,5 @@
 // src/components/Map/Map.module.scss
-@import '../../styles/_variables';
+@use '../../styles/_variables' as *;
 
 .mapContainer {
   width: 100%;

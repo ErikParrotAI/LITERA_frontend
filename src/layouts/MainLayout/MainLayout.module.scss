@@ -1,5 +1,5 @@
 // src/layouts/MainLayout/MainLayout.module.scss
-@import '../../styles/variables';
+@use '../../styles/variables' as *;
 
 .layoutContainer {
   display: flex;
