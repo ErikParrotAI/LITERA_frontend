@@ -1,17 +1,24 @@
+@import '../../../styles/variables';
+
 .authForm {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
-  border: 1px solid #c4145a;
+  padding: 1.5rem;
+  border: 2px solid $color-accent;
   margin-top: 1rem;
-  color: #fff;
-  background-color: #202020;
+  background-color: $color-paper;
+  color: $color-text;
+  border-radius: $border-radius;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  font-family: $font-base;
 
 
   h2 {
+    //font-weight: 500;
+    color: $color-accent-dark;
+    font-size: 1.8rem;
+    text-align: center;
     margin-bottom: 1rem;
-    color: #c4145a;
-    font-weight: 700;
   }
 
   label {
@@ -21,25 +28,30 @@
 
   input {
     padding: 0.5rem;
-    background-color: #333;
-    border: 1px solid #666;
-    color: #fff;
+    background-color: #fff;
+    border: 1.3px solid $color-accent;
+    color: $color-text;
+    border-radius: 4px;
     margin-bottom: 1rem;
+    font-size: 1rem;
     outline: none;
 
     &:focus {
-      border-color: #c4145a;
+      border-color: $color-accent-dark;
     }
   }
 
   button {
     margin-top: 1rem;
-    background-color: #c4145a;
-    color: #fff;
+    background-color: $color-accent;
+    color: $color-text-light;
     border: none;
     padding: 0.6rem;
     cursor: pointer;
-    font-weight: 600;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border-radius: 6px;
+    transition: background-color 0.3s;
 
     &:disabled {
       opacity: 0.5;
@@ -47,8 +59,24 @@
     }
 
     &:hover:not(:disabled) {
-      background-color: #a6134f;
+      background-color: $color-accent-dark;
     }
+  }
+
+  .error {
+    background-color: #ff3b3b;
+    color: #fff;
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+
+  .success {
+    background-color: #1e7e34;
+    color: #fff;
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
   }
 }
 
@@ -61,18 +89,4 @@
     display: flex;
     flex-direction: column;
   }
-}
-
-.error {
-  background-color: #ff3b3b;
-  color: #fff;
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.success {
-  background-color: #1e7e34;
-  color: #fff;
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
 }

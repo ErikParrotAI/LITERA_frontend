@@ -7,19 +7,40 @@ interface LoginFormProps {
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
-    // @ts-expect-error qwerty
-    const { mutate: login, isLoading, error } = useLogin();
+    const { mutate: login, isPending } = useLogin();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState<string>('');
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         if (!email || !password) {
-            alert('Будь ласка, заповніть усі поля');
+            setErrorMessage('Будь ласка, заповніть усі поля');
             return;
         }
-        login({ email, password });
-        onSuccess(); // Close the sidebar after successful login
+        login({ email, password }, {
+            onError: (error) => {
+                setErrorMessage(parseError(error));
+            },
+            onSuccess: () => {
+                onSuccess();
+            }
+        });
+    };
+
+    const parseError = (error: unknown): string => {
+        if (typeof error === 'object' && error !== null && 'response' in error) {
+            const axiosError = error as { response?: { status: number; statusText: string; } };
+            const { status } = axiosError.response || {};
+            if (status === 400) {
+                return 'Невірний email або пароль.';
+            } else if (status === 500) {
+                return 'Внутрішня помилка сервера (500).';
+            } else {
+                return 'Невідома помилка сервера.';
+            }
+        }
+        return 'Помилка з’єднання з сервером.';
     };
 
     return (
@@ -41,10 +62,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
                 placeholder="Пароль"
                 required
             />
-            <button type="submit" disabled={isLoading}>
-                {isLoading ? 'Входження...' : 'Увійти'}
+            {errorMessage && <div className={styles.error}>{errorMessage}</div>}
+
+            <button type="submit" disabled={isPending}>
+                {isPending ? 'Авторизація...' : 'Увійти'}
             </button>
-            {error && <div className={styles.error}>Помилка: {error.message}</div>}
         </form>
     );
 };
