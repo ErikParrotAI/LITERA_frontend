@@ -1,20 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useUser } from '../../hooks/useUser';
 import { useLogout } from '../../hooks/useAuth';
 import { Dropdown, Button } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
-import styles from './Header.module.scss';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import AuthSidebar from '../../components/HomeEl/AuthSidebar/AuthSidebar';
+import styles from './Header.module.scss';
 
-interface HeaderProps {
-    activeTab?: string;
-    // Можливо, ви будете передавати "activeTab" з MainLayout чи деінде
-}
-
-const Header: React.FC<HeaderProps> = () => {
+const Header: React.FC = () => {
     const { user, isLoading } = useUser();
     const navigate = useNavigate();
-    const location = useLocation(); // Можна визначати активну вкладку за поточним шляхом
+    const location = useLocation();
     const { mutate: logout } = useLogout();
 
     const userMenuItems = [
@@ -24,27 +20,36 @@ const Header: React.FC<HeaderProps> = () => {
     ];
 
     const handleMenuClick = (info: { key: string }) => {
-        if (info.key === 'logout') logout();
-        else if (info.key === 'profile') navigate('/profile');
-        else if (info.key === 'settings') navigate('/settings');
+        switch (info.key) {
+            case 'logout':
+                logout();
+                break;
+            case 'profile':
+                navigate('/profile');
+                break;
+            case 'settings':
+                navigate('/settings');
+                break;
+            default:
+                break;
+        }
     };
 
-    const handleAuthClick = (authType: 'login' | 'register') => {
-        navigate(`/?auth=${authType}`);
-    };
+    const [showSidebar, setShowSidebar] = useState(false);
+    const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
 
-    // Можна визначити активну вкладку за location.pathname (як альтернатива – через activeTab)
-    const isActive = (path: string) => {
-        return location.pathname === path ? styles.activeLink : '';
+    const handleSidebarToggle = (authType: 'login' | 'register') => {
+        setAuthMode(authType);
+        setShowSidebar(!showSidebar);
     };
 
     return (
         <header className={styles.headerContainer}>
             <div className={styles.logo}>LITERA</div>
             <nav className={styles.navLinks}>
-                <Link to="/" className={isActive('/')}>Головна</Link>
-                <Link to="/locations" className={isActive('/locations')}>Локації</Link>
-                <Link to="/books" className={isActive('/books')}>Книги</Link>
+                <Link to="/" className={location.pathname === '/' ? styles.activeLink : ''}>Головна</Link>
+                <Link to="/locations" className={location.pathname === '/locations' ? styles.activeLink : ''}>Локації</Link>
+                <Link to="/books" className={location.pathname === '/books' ? styles.activeLink : ''}>Книги</Link>
             </nav>
             <div className={styles.authControls}>
                 {isLoading ? (
@@ -57,15 +62,21 @@ const Header: React.FC<HeaderProps> = () => {
                     </Dropdown>
                 ) : (
                     <>
-                        <Button onClick={() => handleAuthClick('login')} className={styles.authButton}>
+                        <Button onClick={() => handleSidebarToggle('login')} className={styles.authButton}>
                             Увійти
                         </Button>
-                        <Button onClick={() => handleAuthClick('register')} className={styles.authButtonOutline}>
+                        <Button onClick={() => handleSidebarToggle('register')} className={styles.authButtonOutline}>
                             Зареєструватися
                         </Button>
                     </>
                 )}
             </div>
+            {showSidebar && (
+                <AuthSidebar
+                    onClose={() => setShowSidebar(false)}
+                    initialMode={authMode}
+                />
+            )}
         </header>
     );
 };

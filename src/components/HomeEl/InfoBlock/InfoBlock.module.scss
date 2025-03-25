@@ -1,18 +1,31 @@
+// src/components/HomeEl/InfoBlock/InfoBlock.module.scss
+@import '../../../styles/_variables';
+@import url('https://fonts.googleapis.com/css2?family=Marck+Script&display=swap');
+
 .infoBlock {
-  background-color: #1f1f1f;
-  color: #bbbbbb;
-  //border: 1px solid #c4145a;
-  margin-top: 1rem;
-  padding: 1rem;
-  text-align: left;
-  max-width: 632px;
-  margin-left: auto;
-  margin-right: auto;
+  background-color: $color-paper;
+  color: $color-text;
+  border-radius: $border-radius;
+  padding: 2rem 1.5rem;
+  box-shadow: $box-shadow;
+  font-family: 'Marck Script', cursive; /* Незвичайний шрифт */
+  font-size: 1.2rem;
+  line-height: 1.5;
+  transition: transform $transition-speed, box-shadow $transition-speed;
 
   p {
-    margin: 0.8rem 0;
-    line-height: 1.2;
-    font-size: 1.2rem;
-    font-family: 'Courier New', monospace;
+    margin-bottom: 1rem;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  }
+}
+
+/* Адаптивність */
+@media (min-width: 768px) {
+  .infoBlock {
+    font-size: 1.3rem;
   }
 }

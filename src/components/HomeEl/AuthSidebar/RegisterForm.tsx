@@ -1,4 +1,3 @@
-// src/pages/AuthSidebar/RegisterForm.tsx
 import React, { useState } from 'react';
 import axiosInstance from '../../../api/axiosInstance';
 import styles from './forms.module.scss';
@@ -15,9 +14,10 @@ interface RegisterValues {
 
 interface RegisterFormProps {
     switchToLogin: () => void;
+    onSuccess: () => void; // Callback to switch to the login tab after successful registration
 }
 
-const RegisterForm: React.FC<RegisterFormProps> = ({ switchToLogin }) => {
+const RegisterForm: React.FC<RegisterFormProps> = ({ switchToLogin, onSuccess }) => {
     const [values, setValues] = useState<RegisterValues>({
         username: '',
         firstName: '',
@@ -69,7 +69,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ switchToLogin }) => {
                 password: values.password,
             });
             message.success('Реєстрація успішна! Тепер увійдіть.');
-            // Після успішної реєстрації перемикаємо вкладку на "login"
+            // Close the sidebar after successful registration and switch to the login tab
+            onSuccess();
             switchToLogin();
         } catch (error: unknown) {
             setErrorMessage(parseError(error));
@@ -110,20 +111,20 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ switchToLogin }) => {
             <div className={styles.flexRow}>
                 <div>
                     <input style={{width: '100%'}}
-                        name="firstName"
-                        type="text"
-                        placeholder="Ім'я"
-                        value={values.firstName}
-                        onChange={handleChange}
+                           name="firstName"
+                           type="text"
+                           placeholder="Ім'я"
+                           value={values.firstName}
+                           onChange={handleChange}
                     />
                 </div>
                 <div>
                     <input style={{width: '100%'}}
-                        name="lastName"
-                        type="text"
-                        placeholder="Прізвище"
-                        value={values.lastName}
-                        onChange={handleChange}
+                           name="lastName"
+                           type="text"
+                           placeholder="Прізвище"
+                           value={values.lastName}
+                           onChange={handleChange}
                     />
                 </div>
             </div>

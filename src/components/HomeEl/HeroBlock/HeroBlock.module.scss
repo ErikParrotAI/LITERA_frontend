@@ -1,0 +1,75 @@
+@import '../../../styles/_variables';
+
+// Зменшуємо загальну висоту секції
+.heroSection {
+  position: relative;
+  background: url('https://t3.ftcdn.net/jpg/09/84/61/42/360_F_984614200_THB5nJmHtx1UKCNv8HYeR9zqs1EZMaDP.jpg');
+  background-size: cover;
+  width: 100%;
+  min-height: 35vh; // Adjusted height for better balance
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Злегка затемнюємо фон для кращого контрасту тексту
+.overlay {
+  width: 100%;
+  min-height: 35vh;
+  background-color: rgba(0, 0, 0, 0.4); // Increase opacity or decrease for better contrast
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroContent {
+  max-width: 1000px;  // Reduced width to make sure text doesn't overflow
+  text-align: center;
+  padding: 2rem 1rem;
+  color: $color-text-light;
+}
+
+.heroTitle {
+  font-size: 3rem;  // Adjusted size for better readability
+  margin-bottom: 0.75rem;
+  font-family: 'Cormorant Garamond', serif;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  line-height: 1.2;  // Reduces unnecessary line space
+  white-space: nowrap;  // Ensures title stays in one line
+  overflow: hidden;  // Prevents overflowing content
+  text-overflow: ellipsis;  // Ellipsis when text overflows
+}
+
+.heroSubtitle {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.quote {
+  font-size: 1rem;  // Reduced for better readability
+  font-style: italic;
+  margin-bottom: 0.25rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.quoteAuthor {
+  font-size: 0.9rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Адаптивність для кращого масштабу на різних екранах */
+@media (min-width: 768px) {
+  .heroTitle {
+    font-size: 3.5rem;  // Bigger font size on larger screens
+  }
+
+  .heroSubtitle {
+    font-size: 1.3rem;
+  }
+
+  .quote {
+    font-size: 1.1rem;
+  }
+}

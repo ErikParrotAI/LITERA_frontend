@@ -2,8 +2,12 @@ import React, { useState, FormEvent } from 'react';
 import { useLogin } from '../../../hooks/useAuth.ts';
 import styles from './forms.module.scss';
 
-const LoginForm: React.FC = () => {
-    // @ts-ignore
+interface LoginFormProps {
+    onSuccess: () => void; // Callback to close the sidebar
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
+    // @ts-expect-error qwerty
     const { mutate: login, isLoading, error } = useLogin();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -15,6 +19,7 @@ const LoginForm: React.FC = () => {
             return;
         }
         login({ email, password });
+        onSuccess(); // Close the sidebar after successful login
     };
 
     return (

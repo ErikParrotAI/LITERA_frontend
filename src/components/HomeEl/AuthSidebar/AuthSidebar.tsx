@@ -1,5 +1,4 @@
-// src/pages/AuthSidebar/AuthSidebar.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import { CloseOutlined } from '@ant-design/icons';
@@ -14,22 +13,39 @@ interface AuthSidebarProps {
 
 const AuthSidebar: React.FC<AuthSidebarProps> = ({ onClose, initialMode = 'login' }) => {
     const [authMode, setAuthMode] = useState<AuthMode>(initialMode);
+    const sidebarRef = useRef<HTMLDivElement | null>(null); // Ref to the sidebar container
+
+    // Close sidebar when clicking outside of it
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+                onClose();
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [onClose]);
 
     const switchToLogin = () => setAuthMode('login');
+    const switchToRegister = () => setAuthMode('register');
 
     return (
-        <div className={styles.sidebarContainer}>
+        <div className={styles.sidebarContainer} ref={sidebarRef}>
             <div className={styles.header}>
                 <div className={styles.tabs}>
                     <button
                         className={`${styles.tabButton} ${authMode === 'login' ? styles.activeTab : ''}`}
-                        onClick={() => setAuthMode('login')}
+                        onClick={switchToLogin}
                     >
                         Авторизація
                     </button>
                     <button
                         className={`${styles.tabButton} ${authMode === 'register' ? styles.activeTab : ''}`}
-                        onClick={() => setAuthMode('register')}
+                        onClick={switchToRegister}
                     >
                         Реєстрація
                     </button>
@@ -40,9 +56,9 @@ const AuthSidebar: React.FC<AuthSidebarProps> = ({ onClose, initialMode = 'login
             </div>
             <div className={styles.content}>
                 {authMode === 'login' ? (
-                    <LoginForm />
+                    <LoginForm onSuccess={onClose} />
                 ) : (
-                    <RegisterForm switchToLogin={switchToLogin} />
+                    <RegisterForm switchToLogin={switchToLogin} onSuccess={switchToLogin} />
                 )}
             </div>
         </div>
