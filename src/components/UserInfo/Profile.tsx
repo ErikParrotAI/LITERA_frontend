@@ -5,7 +5,6 @@ import styles from './Profile.module.scss';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { Link } from 'react-router-dom';
 
-
 // Helper functions to convert URL <-> string
 function urlToString(u: URL | string | null | undefined): string {
     if (!u) return '';
@@ -90,8 +89,8 @@ const ProfilePage: React.FC = () => {
                     </div>
                     <div className={styles['profile-details']}>
                         {editMode ? (
-                            <div className={styles['input-container']}>
-                                <div className={styles['input-row']}>
+                            <>
+                                <div className={`${styles['info-block']} ${styles['input-row']}`}>
                                     <label><strong>Нікнейм:</strong></label>
                                     <input
                                         type="text"
@@ -102,7 +101,7 @@ const ProfilePage: React.FC = () => {
                                         placeholder="Нікнейм"
                                     />
                                 </div>
-                                <div className={styles['input-row']}>
+                                <div className={`${styles['info-block']} ${styles['input-row']}`}>
                                     <label><strong>Ім'я:</strong></label>
                                     <input
                                         type="text"
@@ -113,7 +112,7 @@ const ProfilePage: React.FC = () => {
                                         placeholder="Ім'я"
                                     />
                                 </div>
-                                <div className={styles['input-row']}>
+                                <div className={`${styles['info-block']} ${styles['input-row']}`}>
                                     <label><strong>Прізвище:</strong></label>
                                     <input
                                         type="text"
@@ -124,7 +123,7 @@ const ProfilePage: React.FC = () => {
                                         placeholder="Прізвище"
                                     />
                                 </div>
-                                <div className={styles['input-row']}>
+                                <div className={`${styles['info-block']} ${styles['input-row']}`}>
                                     <label><strong>Email:</strong></label>
                                     <input
                                         type="email"
@@ -135,7 +134,7 @@ const ProfilePage: React.FC = () => {
                                         placeholder="Email"
                                     />
                                 </div>
-                                <div className={styles['input-row']}>
+                                <div className={`${styles['info-block']} ${styles['input-row']}`}>
                                     <label><strong>Телефон:</strong></label>
                                     <input
                                         type="text"
@@ -146,32 +145,47 @@ const ProfilePage: React.FC = () => {
                                         placeholder="Телефон"
                                     />
                                 </div>
-                            </div>
+                            </>
                         ) : (
                             <>
-                                <p><strong>Нікнейм:</strong> {user?.username ?? 'username'}</p>
-                                <p><strong>Ім'я:</strong> {user?.first_name ?? 'first name'}</p>
-                                <p><strong>Прізвище:</strong> {user?.last_name ?? 'last name'}</p>
-                                <p><strong>Email:</strong> {user?.email ?? 'email'}</p>
-                                <p><strong>Телефон:</strong> {user?.phone_number ?? ' - '}</p>
+                                <div className={styles['info-block']}>
+                                    <label><strong>Нікнейм:</strong></label>
+                                    <span>{user?.username ?? 'username'}</span>
+                                </div>
+                                <div className={styles['info-block']}>
+                                    <label><strong>Ім'я:</strong></label>
+                                    <span>{user?.first_name ?? 'first name'}</span>
+                                </div>
+                                <div className={styles['info-block']}>
+                                    <label><strong>Прізвище:</strong></label>
+                                    <span>{user?.last_name ?? 'last name'}</span>
+                                </div>
+                                <div className={styles['info-block']}>
+                                    <label><strong>Email:</strong></label>
+                                    <span>{user?.email ?? 'email'}</span>
+                                </div>
+                                <div className={styles['info-block']}>
+                                    <label><strong>Телефон:</strong></label>
+                                    <span>{user?.phone_number ?? ' - '}</span>
+                                </div>
                             </>
+                        )}
+                        {editMode ? (
+                            <div className={styles['btn']}>
+                                <button className={styles['btnAccept']} onClick={handleSaveClick}>Зберегти</button>
+                                <button className={styles['btnCancel']} onClick={handleCancelClick}>Скасувати</button>
+                            </div>
+                        ) : (
+                            <button className={styles['editButton']} onClick={handleEditClick}>Редагувати</button>
                         )}
                     </div>
                 </div>
-                {editMode ? (
-                    <div className={styles['btn']}>
-                        <button className={styles['btnAccept']} onClick={handleSaveClick}>Зберегти</button>
-                        <button className={styles['btnCancel']} onClick={handleCancelClick}>Скасувати</button>
-                    </div>
-                ) : (
-                    <button className={styles['editButton']} onClick={handleEditClick}>Редагувати</button>
-                )}
                 <hr />
                 <div className={styles['social-section']}>
                     <h3>Соцмережі</h3>
                     {editMode ? (
-                        <div className={styles['input-container']}>
-                            <div className={styles['input-row']}>
+                        <>
+                            <div className={`${styles['info-block']} ${styles['input-row']}`}>
                                 <label><strong>Twitter:</strong></label>
                                 <input
                                     type="url"
@@ -182,7 +196,7 @@ const ProfilePage: React.FC = () => {
                                     placeholder="Twitter URL"
                                 />
                             </div>
-                            <div className={styles['input-row']}>
+                            <div className={`${styles['info-block']} ${styles['input-row']}`}>
                                 <label><strong>Instagram:</strong></label>
                                 <input
                                     type="url"
@@ -193,7 +207,7 @@ const ProfilePage: React.FC = () => {
                                     placeholder="Instagram URL"
                                 />
                             </div>
-                            <div className={styles['input-row']}>
+                            <div className={`${styles['info-block']} ${styles['input-row']}`}>
                                 <label><strong>Telegram:</strong></label>
                                 <input
                                     type="url"
@@ -204,7 +218,7 @@ const ProfilePage: React.FC = () => {
                                     placeholder="Telegram URL"
                                 />
                             </div>
-                            <div className={styles['input-row']}>
+                            <div className={`${styles['info-block']} ${styles['input-row']}`}>
                                 <label><strong>Facebook:</strong></label>
                                 <input
                                     type="url"
@@ -215,7 +229,7 @@ const ProfilePage: React.FC = () => {
                                     placeholder="Facebook URL"
                                 />
                             </div>
-                        </div>
+                        </>
                     ) : (
                         <div className={styles['social-icons']}>
                             {user?.x_link && (
