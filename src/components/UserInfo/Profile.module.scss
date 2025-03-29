@@ -1,24 +1,21 @@
-$background: #121212 !default;
-$text-color: #f5f5f5 !default;
-$accent: #bb86fc !default;
-$secondary-accent: #03dac6 !default;
-$card-background: #1e1e1e !default;
-$border-color: #333333 !default;
-$hover-bg: #2a2a2a !default;
+$color-bg: #f7f2e7;          // Основний фон (ніжний беж)
+$color-paper: #efe5d5;       // Колір «паперу»
+$color-accent: #c6a67a;      // Акцент (коричнево-золотистий)
+$color-accent-dark: #8f7c66; // Темніший акцент
+$color-text: #3f2f21;        // Основний текст (темно-коричневий)
+$color-text-light: #fff;     // Світлий текст
 
-h1 {
-  text-shadow:
-  0 0 5px $accent,
-  0 0 10px $accent,
-  0 0 15px $accent,
-}
+$font-base: 'Georgia', serif;
+$font-headers: 'Book Antiqua', Palatino, serif;
+
+$border-radius: 6px;       // Заокруглення для блоків
+$transition-speed: 0.3s;   // Швидкість переходів (hover тощо)
+$box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  // Тіні
 
 .container {
-  background: linear-gradient(120deg, $accent, $secondary-accent, $card-background); /* Gradient background */
-  color: $text-color;
-  font-family: 'Arial', sans-serif;
+  color: $color-text;
+  font-family: $font-base;
   padding: 20px;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,14 +27,17 @@ h1 {
 }
 
 .user-info {
-  background-color: rgba(30, 30, 30, 0.7);
-  border: 0 solid $border-color;
-  border-radius: 15px;
+  border-radius: $border-radius;
   padding: 15px;
   display: flex;
   align-items: flex-start;
-  position: relative;
-  overflow: hidden;
+  border: 1px solid $color-accent-dark;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.user-info:hover {
+  transform: scale(1.01);
 }
 
 .user-pic {
@@ -46,7 +46,7 @@ h1 {
   border-radius: 50%;
   overflow: hidden;
   margin-right: 40px;
-  margin-top: 50px;
+  margin-top: 5px;
 
   img {
     width: 100%;
@@ -60,39 +60,50 @@ h1 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 20px 0; /* Видалено фонове заливку та рамку */
+  width: 100%;
+}
 
-  p, .input-row {
-    margin: 5px 0;
-    height: 30px;
+.info-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid $color-accent-dark;
+
+  label {
+    font-weight: bold;
+  }
+
+  span, input {
+    margin-left: 5px;
+    flex-grow: 1;
   }
 }
 
+.info-block:last-child {
+  border-bottom: none;
+}
+
 .input-container {
-  width: 100%;
-  display: flex;
   flex-direction: column;
 }
 
 .input-row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 10px;
 
   label {
     font-weight: bold;
   }
 
   input {
-    background-color: rgba(30, 30, 30, 0.5);
-    border: 0 solid $border-color;
-    border-radius: 5px;
-    color: $text-color;
-    width: 100%;
-
+    border: 0 solid $color-accent;
+    color: $color-text;
+    border-radius: $border-radius;
 
     &:focus {
-      border-color: $accent;
+      border-color: $color-accent-dark;
       outline: none;
     }
   }
@@ -104,58 +115,38 @@ h1 {
   margin-top: 10px;
 
   button {
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    background-color: $color-accent-dark;
+    color: $color-text-light;
+    border-radius: $border-radius;
+    transition: none;
 
-    &.btnAccept {
-      background-color: $accent;
-
-      &:hover {
-        background-color: darken($accent, 10%);
-      }
-    }
-
-    &.btnCancel {
-      background-color: $secondary-accent;
-
-      &:hover {
-        background-color: darken($secondary-accent, 10%);
-      }
+    &:hover {
+      background-color: $color-accent-dark;
     }
   }
 }
 
 .editButton {
-  background-color: $accent;
-  border: none;
-  border-radius: 5px;
+  background-color: $color-accent;
+  border: 0 solid $color-accent-dark;
+  border-radius: $border-radius;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color $transition-speed;
   margin-top: 10px;
-
-  &:hover {
-    background-color: darken($accent, 10%);
-  }
 }
 
 .social-section {
   margin-top: 20px;
-  background-color: rgba(30, 30, 30, 0.7);
-  border: 0 solid $border-color;
-  border-radius: 15px;
+  border-radius: 10px;
   padding: 15px;
   width: 100%;
   max-width: 600px;
-
-  h3 {
-    margin-bottom: 10px;
-    text-shadow:
-    0 0 5px $accent,
-    0 0 10px $accent,
-    0 0 15px $accent,
-  }
+  background: $color-bg;
+  border: 1px solid $color-accent-dark;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  border-radius: $border-radius;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   .social-icons {
     display: flex;
@@ -163,20 +154,23 @@ h1 {
     gap: 15px;
 
     a {
-      color: $text-color;
+      color: $color-text;
       font-size: 1.5rem;
-      transition: color 0.3s;
+      transition: color $transition-speed;
 
       &:hover {
-        color: $accent;
+        color: $color-accent-dark;
       }
     }
   }
 }
 
+.social-section:hover {
+  transform: scale(1.01);
+}
+
 hr {
   border: 0;
-  border-top: 1px solid $border-color;
-  margin: 20px 0;
+  margin: 10px 0;
   width: 100%;
 }
