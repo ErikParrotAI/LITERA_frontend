@@ -1,13 +1,12 @@
-// src/components/BookCard/BookCard.tsx
 import React from 'react';
 import styles from './BookCard.module.scss';
-import { Card } from 'antd';
 
-export interface Author {
+/** Локальні типи (без глобального інтерфейсу) */
+interface Author {
     full_name: string;
 }
 
-export interface Book {
+interface Book {
     id: number;
     name: string;
     authors: Author[];
@@ -20,21 +19,31 @@ interface BookCardProps {
 }
 
 const BookCard: React.FC<BookCardProps> = ({ book }) => {
+    const authorsList = book.authors.map(a => a.full_name).join(', ');
+
+    // Можливі фон-зображення
+    const backgroundImages = [
+        '/bg_image3.jpg',
+    ];
+    // Випадково вибираємо одне з них
+    const randomIndex = Math.floor(Math.random() * backgroundImages.length);
+    const randomBg = backgroundImages[randomIndex];
+
     return (
-        <Card className={styles.card} title={book.name}>
-            <p>
-                <strong>Автор(и): </strong>
-                {book.authors.map((author) => author.full_name).join(', ')}
-            </p>
-            <p>
-                <strong>Рік видання: </strong>
-                {book.year_of_publication}
-            </p>
-            <p>
-                <strong>Сторінок: </strong>
-                {book.number_of_pages}
-            </p>
-        </Card>
+        <div
+            className={styles.card}
+            /* Інлайн-стиль: підставляємо випадковий фон */
+            style={{ backgroundImage: `url(${randomBg})` }}
+        >
+            <div className={styles.glassPanel}>
+                <div className={styles.bookTitle}>{book.name}</div>
+                <div className={styles.author}>{authorsList}</div>
+                <div className={styles.bottomInfo}>
+                    <div className={styles.year}>Рік: {book.year_of_publication}</div>
+                    <div className={styles.pages}>Сторінок: {book.number_of_pages}</div>
+                </div>
+            </div>
+        </div>
     );
 };
 

@@ -1,17 +1,15 @@
 // src/components/BookListPanel/BookListPanel.tsx
 import React from 'react';
-import { useLocationBooks } from '../../hooks/useLocationBooks';
+import { Book } from '../../interfaces/IBook';
 import styles from './BookListPanel.module.scss';
 
 interface BookListPanelProps {
-    locationId: number | null;
+    books: Book[]; // відфільтровані книги для вибраної локації з глобальними фільтрами
     locationName: string;
     onClose: () => void;
 }
 
-const BookListPanel: React.FC<BookListPanelProps> = ({ locationId, locationName, onClose }) => {
-    const { data: books, isLoading } = useLocationBooks(locationId);
-
+const BookListPanel: React.FC<BookListPanelProps> = ({ books, locationName, onClose }) => {
     return (
         <div className={styles.panel}>
             <div className={styles.header}>
@@ -20,24 +18,20 @@ const BookListPanel: React.FC<BookListPanelProps> = ({ locationId, locationName,
                     Закрити
                 </button>
             </div>
-            {isLoading ? (
-                <p>Завантаження...</p>
-            ) : (
-                <div className={styles.content}>
-                    {books && books.length > 0 ? (
-                        books.map((book) => (
-                            <div key={book.id} className={styles.bookItem}>
-                                <h4>{book.name}</h4>
-                                <p>Автор(и): {book.authors.map(a => a.full_name).join(', ')}</p>
-                                <p>Рік: {book.year_of_publication}</p>
-                                <p>Сторінок: {book.number_of_pages}</p>
-                            </div>
-                        ))
-                    ) : (
-                        <p>Немає книг для цієї локації.</p>
-                    )}
-                </div>
-            )}
+            <div className={styles.content}>
+                {books && books.length > 0 ? (
+                    books.map((book) => (
+                        <div key={book.id} className={styles.bookItem}>
+                            <h4>{book.name}</h4>
+                            <p>Автор(и): {book.authors.map(a => a.full_name).join(', ')}</p>
+                            <p>Рік: {book.year_of_publication}</p>
+                            <p>Сторінок: {book.number_of_pages}</p>
+                        </div>
+                    ))
+                ) : (
+                    <p>Книжок не знайдено.</p>
+                )}
+            </div>
         </div>
     );
 };

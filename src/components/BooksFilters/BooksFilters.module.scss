@@ -1,41 +1,177 @@
-// src/components/BooksFilters/BooksFilters.module.scss
+@use 'sass:color' as c;          // Підключаємо модуль для коректного adjust
+@use '../../styles/variables' as *;
 
-@use '../../styles/variables' as *; // приклад спільних змінних
-
+/* Контейнер фільтрів: один ряд із перенесеннями, мінімалістичний */
 .filtersContainer {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  background-color: $card-background;
-  padding: 1rem;
-  border-radius: 8px;
-  margin-bottom: 2rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  flex-wrap: wrap;        /* Щоб елементи переносилися при браку простору */
+  align-items: center;
+  justify-content: flex-start; /* Починаємо зліва */
+
+  width: auto;
+  min-height: 75px;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba($color-text, 0.3);
+  border-radius: $border-radius;
+  font-family: $font-base;
+  color: $color-text;
+  gap: 1rem;              /* Відступ між елементами */
+  background-color: transparent; /* Мінімалізм: без фону або легкий фон на ваш розсуд */
 }
 
+/* Пошукова група */
+.searchGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 300px;       /* Щоб поле пошуку не було зовсім вузьким */
+
+  label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: $color-text;
+  }
+
+  input[type='text'] {
+    padding: 0.35rem 0.5rem;
+    border: 1px solid rgba($color-text, 0.3);
+    border-radius: $border-radius;
+    font-size: 0.9rem;
+    color: $color-text;
+    transition: border-color $transition-speed;
+
+    &::placeholder {
+      /* Мінімальний натяк на світліший відтінок */
+      color: c.adjust($color-text, $lightness: 30%);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $color-accent;
+    }
+  }
+}
+
+/* Іконка-фільтр, замінює кнопку */
+.filterIconBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid rgba($color-text, 0.3);
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: transparent;
+  transition: background-color $transition-speed;
+
+  &:hover {
+    background-color: rgba($color-text, 0.05);
+  }
+
+  i {
+    font-size: 1rem;      /* Розмір іконки */
+    color: $color-text;   /* Колір іконки */
+  }
+}
+
+/* Блок, що приховує/відображає решту фільтрів */
+.hiddenFilters {
+  display: none;
+}
+
+.visibleFilters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Сортування (компактний select) */
+.sortSelectGroup {
+  display: flex;
+  margin-bottom: 1rem;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: $color-text;
+  }
+
+  select {
+    padding: 0.35rem 0.5rem;
+    font-size: 0.85rem;
+    border: 1px solid rgba($color-text, 0.3);
+    border-radius: $border-radius;
+    color: $color-text;
+
+    &:focus {
+      outline: none;
+      border-color: $color-accent;
+    }
+  }
+}
+
+/* Група років, сторінок тощо */
 .filterGroup {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
 
   label {
-    font-weight: bold;
-    color: $accent;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: $color-text;
   }
 
-  input,
-  select {
-    background-color: $background;
-    color: $text-color;
-    border: 1px solid $border-color;
-    border-radius: 4px;
-    padding: 0.5rem;
-    outline: none;
-    transition: border 0.3s, box-shadow 0.3s;
+  .inputsAndSlider {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Додатковий відступ між полями від/до та повзунком */
+  }
+
+  input[type='number'] {
+    width: 60px;
+    padding: 0.3rem;
+    margin: 0 0.5rem 0.5rem 0.5rem;
+    font-size: 0.85rem;
+    text-align: center;
+    border: 1px solid rgba($color-text, 0.3);
+    border-radius: $border-radius;
+    transition: border-color $transition-speed;
+    font-family: inherit;
+    color: $color-text;
+
+    &::placeholder {
+      color: c.adjust($color-text, $lightness: 30%);
+    }
 
     &:focus {
-      border-color: $secondary-accent;
-      box-shadow: 0 0 5px $secondary-accent;
+      outline: none;
+      border-color: $color-accent;
     }
   }
+}
+
+/* react-range track & thumb */
+.track {
+  flex: 1;
+  height: 4px;
+  background-color: rgba($color-text, 0.3);
+  border-radius: 2px;
+  position: relative;
+  margin: 0 0.25rem; /* невеликий горизонтальний відступ */
+}
+
+.thumb {
+  width: 12px;
+  height: 12px;
+  background-color: $color-accent;
+  border: 1px solid $color-accent-dark;
+  border-radius: 50%;
+  cursor: pointer;
 }

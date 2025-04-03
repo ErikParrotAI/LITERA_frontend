@@ -81,12 +81,12 @@ const Map: React.FC<MapProps> = ({ geojson, onMarkerHover, onMarkerLeave }) => {
     }, [geojson, onMarkerHover, onMarkerLeave]);
 
     // Оновлення даних у джерелі при зміні geojson
-    useEffect(() => {
-        if (mapRef.current && mapRef.current.getSource('locations')) {
-            const source = mapRef.current.getSource('locations') as mapboxgl.GeoJSONSource;
-            source.setData(geojson);
-        }
-    }, [geojson]);
+    // useEffect(() => {
+    //     if (mapRef.current && mapRef.current.getSource('locations')) {
+    //         const source = mapRef.current.getSource('locations') as mapboxgl.GeoJSONSource;
+    //         source.setData(geojson);
+    //     }
+    // }, [geojson]);
 
     return <div ref={mapContainerRef} className={styles.mapContainer} />;
 };

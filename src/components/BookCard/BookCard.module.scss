@@ -1,26 +1,92 @@
-// src/components/BookCard/BookCard.module.scss
-
-@use '../../styles/variables' as *; // якщо у вас є спільні змінні
-
 .card {
-  background-color: $card-background; // приклад використання змінної
-  border-radius: 8px;
+  /* Базові розміри та округлення */
+  width: 280px;
+  min-height: 340px;
+  margin: 1rem auto;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
 
-  // Перезапис стилів Ant Design, якщо потрібно
-  .ant-card-head-title {
-    color: $accent;
-    font-size: 1.5rem;
-  }
+  /*
+   * Робимо ефект "скляної трубки" на рамці:
+   *  - "double" border + градієнти
+   *  - background-clip: content-box, border-box;
+   */
+  border: 6px double transparent;
+  background-image:
+          /* Перший шар — прозорий, щоб крізь нього було видно фон (зображення) */
+          linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0)),
+            /* Другий шар — злегка затонований градієнт, формує трубчасту рамку */
+          radial-gradient(circle at top left, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.02) 70%);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
 
-  // Вміст
-  p {
-    color: $text-color;
-    margin: 0.25rem 0;
-  }
+  /* Фонове зображення (встановимо інлайн-стилем у BookCard.tsx) */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
-  // Ефект ховера
+  /* Мінімальне збільшення при наведенні, без "квадратного" боксу-тіні */
+  transition: transform 0.3s;
   &:hover {
-    transform: scale(1.02);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transform: scale(1.03); /* Злегка збільшуємо картку */
+  }
+
+  /*
+   * Скляна панель усередині (де розміщується текст):
+   *  - Напівпрозорий фон + розмиття
+   *  - Без масивної тіні (щоб не виглядало як "квадрат")
+   */
+  .glassPanel {
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px); // Для Safari
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Стилі текстових блоків */
+  .bookTitle {
+    margin-bottom: 0.75rem;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #111;
+    /* Легке затемнення навколо букв для кращої читабельності */
+    text-shadow: 0 1px 3px rgba(255, 255, 255, 0.3);
+  }
+
+  .author {
+    margin-bottom: 1rem;
+    font-family: "Roboto", sans-serif;
+    font-size: 1rem;
+    color: #222;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+  }
+
+  .bottomInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    color: #222;
+    font-family: "Roboto", sans-serif;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+
+    .year {
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .pages {
+      font-weight: 400;
+      font-size: 0.85rem;
+    }
   }
 }

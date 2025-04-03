@@ -1,31 +1,97 @@
-// src/pages/MapPage/MapPage.tsx
-import React, { useState, useCallback } from 'react';
-import { Spin, message } from 'antd';
-import SearchBar from '../../components/SearchBar/SearchBar';
+import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react';
+import BooksFilters from '../../components/BooksFilters/BooksFilters';
 import Map from '../../components/Map/Map';
-import InfoPopup from '../../components/InfoPopup/InfoPopup';
 import BookListPanel from '../../components/BookListPanel/BookListPanel';
-import { useLocations, Feature, LocationQueryParams } from '../../hooks/useLocations';
+import InfoPopup from '../../components/InfoPopup/InfoPopup';
+import { useBooks, IBookQueryParams } from '../../hooks/useBooks';
+import { useLocations, Feature, FeatureCollection } from '../../hooks/useLocations';
+import { Book } from '../../interfaces/IBook';
 import styles from './MapPage.module.scss';
 
 const MapPage: React.FC = () => {
-    const [searchQuery, setSearchQuery] = useState<string>('');
+    // Стан для глобальних фільтрів книг
+    const [search, setSearch] = useState<string>('');
+    const [ordering, setOrdering] = useState<string>('');
+    const [pagesRange, setPagesRange] = useState<[number, number]>([1, 2000]);
+    const [yearsRange, setYearsRange] = useState<[number, number]>([1000, 2025]);
+
+    // Додатковий стан для дебаунсу пошуку (для карти)
+    const [debouncedSearch, setDebouncedSearch] = useState(search);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDebouncedSearch(search);
+        }, 1000); // 1500 мс дебаунс
+        return () => clearTimeout(timer);
+    }, [search]);
+
+    // Стан для "ховерного" feature (для попапу)
     const [hoveredFeature, setHoveredFeature] = useState<Feature | null>(null);
     const [popupPosition, setPopupPosition] = useState<{ x: number; y: number } | null>(null);
+    const hidePopupTimeout = useRef<number | null>(null);
+
+    // Стан для вибраної локації
     const [selectedLocationId, setSelectedLocationId] = useState<number | null>(null);
-    const [selectedLocationName, setSelectedLocationName] = useState<string>('');
-    const [showBookList, setShowBookList] = useState(false);
 
-    const hidePopupTimeout = React.useRef<number | null>(null);
+    // Параметри фільтра для useBooks
+    const bookQueryParams: IBookQueryParams = {
+        search: search || undefined,
+        ordering: ordering || undefined,
+        min_pages: pagesRange[0],
+        max_pages: pagesRange[1],
+        min_year: yearsRange[0],
+        max_year: yearsRange[1],
+    };
 
-    // Завантаження локацій із бекенду з параметром пошуку
-    const params: LocationQueryParams = { search: searchQuery };
-    const { data: geojson, isLoading, isError } = useLocations(params);
+    // Отримуємо глобально відфільтровані книги
+    const {
+        data: books = [],
+        isLoading: booksLoading,
+        isError: booksIsError,
+    } = useBooks(bookQueryParams);
 
-    const handleSearch = useCallback((query: string) => {
-        setSearchQuery(query);
-    }, []);
+    // Завантаження гео-даних локацій з використанням дебаунс-пошуку
+    const {
+        data: locationsGeoJSON,
+        isLoading: locLoading,
+        isError: locIsError,
+    } = useLocations({ search: debouncedSearch || undefined });
 
+    // Обчислюємо множину унікальних location_id з відфільтрованих книг
+    const filteredLocationIds = useMemo(() => {
+        const ids = new Set<number>();
+        books.forEach((book: Book) => {
+            if (book.location?.id) {
+                ids.add(book.location.id);
+            }
+        });
+        return ids;
+    }, [books]);
+
+    // Фільтруємо geoJSON-дані локацій, залишаючи лише ті, що містять location_id із відфільтрованих книг
+    const filteredGeoJSON = useMemo<FeatureCollection | null>(() => {
+        if (!locationsGeoJSON) return null;
+        const filteredFeatures = locationsGeoJSON.features.filter((feature) =>
+            filteredLocationIds.has((feature.properties as unknown as { location_id: number }).location_id)
+        );
+        return { ...locationsGeoJSON, features: filteredFeatures };
+    }, [locationsGeoJSON, filteredLocationIds]);
+
+    // Обчислюємо список книг для вибраної локації
+    const booksForSelectedLocation = useMemo(() => {
+        if (!selectedLocationId) return [];
+        return books.filter((book) => book.location?.id === selectedLocationId);
+    }, [books, selectedLocationId]);
+
+    // Назва вибраної локації (для заголовка в BookListPanel)
+    const selectedLocationName = useMemo(() => {
+        if (!selectedLocationId || !locationsGeoJSON) return '';
+        const feature = locationsGeoJSON.features.find(
+            (f) => (f.properties as unknown as { location_id: number }).location_id === selectedLocationId
+        );
+        return feature ? (feature.properties as unknown as { name: string }).name : '';
+    }, [selectedLocationId, locationsGeoJSON]);
+
+    // Callback для наведення на маркер
     const handleMarkerHover = useCallback((feature: Feature, point: { x: number; y: number }) => {
         if (hidePopupTimeout.current) {
             clearTimeout(hidePopupTimeout.current);
@@ -35,6 +101,7 @@ const MapPage: React.FC = () => {
         setPopupPosition(point);
     }, []);
 
+    // Callback для відведення курсора від маркера
     const handleMarkerLeave = useCallback(() => {
         hidePopupTimeout.current = setTimeout(() => {
             setHoveredFeature(null);
@@ -42,7 +109,6 @@ const MapPage: React.FC = () => {
         }, 300);
     }, []);
 
-    // Callback для when user hovers over popup itself – скидаємо таймаут
     const handlePopupEnter = useCallback(() => {
         if (hidePopupTimeout.current) {
             clearTimeout(hidePopupTimeout.current);
@@ -50,47 +116,53 @@ const MapPage: React.FC = () => {
         }
     }, []);
 
-    // При відведенні курсора від popup – сховуємо його
     const handlePopupLeave = useCallback(() => {
         setHoveredFeature(null);
         setPopupPosition(null);
     }, []);
 
-    // Коли користувач натискає "Список книг" у popup
-    const handleShowBookList = useCallback((locName: string, locId: number) => {
-        setSelectedLocationName(locName);
-        setSelectedLocationId(locId);
-        setShowBookList(true);
+    // Callback для відкриття списку книг (при натисканні в попапі)
+    const handleShowBookList = useCallback((_locationName: string, locationId: number) => {
+        setSelectedLocationId(locationId);
     }, []);
 
+    // Callback для закриття панелі книг
     const handleCloseBookList = useCallback(() => {
-        setShowBookList(false);
         setSelectedLocationId(null);
-        setSelectedLocationName('');
     }, []);
-
-    if (isError) {
-        message.error('Не вдалося завантажити локації');
-    }
 
     return (
         <div className={styles.pageContainer}>
-            <SearchBar onSearch={handleSearch} />
+            {/* Фільтри книг */}
+            <BooksFilters
+                initialParams={bookQueryParams}
+                onChange={(newParams) => {
+                    setSearch(newParams.search || '');
+                    setOrdering(newParams.ordering || '');
+                    setPagesRange([newParams.min_pages ?? 1, newParams.max_pages ?? 2000]);
+                    setYearsRange([newParams.min_year ?? 1000, newParams.max_year ?? 2025]);
+                }}
+            />
 
+            {(booksLoading || locLoading) && <p>Завантаження...</p>}
+            {(booksIsError || locIsError) && <p>Помилка при завантаженні даних.</p>}
+            {/*<div className={styles.contentContainer2}>*/}
+            {/*    <h2>Loading</h2>*/}
+            {/*</div>*/}
             <div className={styles.contentContainer}>
-                {isLoading ? (
-                    <Spin size="large" className={styles.spinner} />
-                ) : geojson ? (
+                {/* Карта з відфільтрованими локаціями */}
+                {filteredGeoJSON && (
                     <Map
-                        geojson={geojson}
+                        geojson={filteredGeoJSON}
                         onMarkerHover={handleMarkerHover}
                         onMarkerLeave={handleMarkerLeave}
                     />
-                ) : null}
+                )}
 
-                {showBookList && (
+                {/* Панель зі списком книг для вибраної локації */}
+                {selectedLocationId && (
                     <BookListPanel
-                        locationId={selectedLocationId}
+                        books={booksForSelectedLocation}
                         locationName={selectedLocationName}
                         onClose={handleCloseBookList}
                     />

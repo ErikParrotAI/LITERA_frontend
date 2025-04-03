@@ -23,9 +23,9 @@ const BooksPage: React.FC = () => {
 
     return (
         <div className={styles.pageContainer}>
-            <h1 className={styles.header}>Список книг</h1>
-
             <BooksFilters onChange={handleFiltersChange} />
+
+            {/*<h1 className={styles.header}>Список книг</h1>*/}
 
             {isLoading ? (
                 <Spin size="large" style={{ display: 'block', margin: '2rem auto' }} />

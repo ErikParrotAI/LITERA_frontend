@@ -1,18 +1,33 @@
-// src/components/BookListPanel/BookListPanel.module.scss
 @use '../../styles/_variables' as *;
 
+/* Основний контейнер панелі */
 .panel {
-  width: 37%;
-  background-color: $card-background;
-  color: $text-color;
+  width: 40%;
+  min-width: 300px;
+  max-width: 600px;
+  /* Optional: Add a texture image for more depth */
+  background-size: cover;
+  background: linear-gradient(
+                  to bottom right,
+                  rgba(255, 234, 221, 0.5),
+                  rgba(243, 227, 206, 0.08)
+  );
+  //url('../../../public/bg_image5.jpg') center;
+  background-blend-mode: overlay;
+  backdrop-filter: blur(15px) saturate(1.5);
+  -webkit-backdrop-filter: blur(15px) saturate(1.5);
+  border: 3px solid rgba(198, 197, 172, 0.4);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  color: #5c4433;
   padding: 1rem;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+  margin-left: 1rem;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
 }
 
+/* Шапка панелі */
 .header {
   display: flex;
   justify-content: space-between;
@@ -20,14 +35,15 @@
   margin-bottom: 1rem;
 
   h2 {
-    color: #ea0e46;
+    color: #d17755;
     margin: 0;
     font-size: 1.5rem;
   }
 }
 
+/* Кнопка «Закрити» */
 .closeButton {
-  background-color: $accent;
+  background-color: #d17755;
   border: none;
   color: #fff;
   padding: 6px 12px;
@@ -37,20 +53,30 @@
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: $secondary-accent;
+    background-color: #ecb8a7;
   }
 }
 
+/* Зона вмісту панелі */
 .content {
   .bookItem {
-    background-color: $hover-bg;
+    background-color: rgba(198, 197, 172, 0.4);  /* Lighter book blocks */
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     margin-bottom: 1rem;
-    padding: 0.5rem;
-    border-radius: 4px;
+    padding: 0.75rem;
+    border-radius: 6px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
 
     h4 {
       margin: 0 0 0.25rem 0;
-      color: $accent;
+      color: #d17755;
     }
 
     p {
