@@ -8,6 +8,8 @@ export interface Country {
 export interface Location {
     id: number;
     name: string;
+    longitude: number;
+    latitude: number;
     address: string;
     work_schedule: string;
 }

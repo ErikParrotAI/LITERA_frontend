@@ -2,14 +2,17 @@
 import React from 'react';
 import { Book } from '../../interfaces/IBook';
 import styles from './BookListPanel.module.scss';
+import { useNavigate } from 'react-router-dom'; // Додано імпорт
 
 interface BookListPanelProps {
-    books: Book[]; // відфільтровані книги для вибраної локації з глобальними фільтрами
+    books: Book[];
     locationName: string;
     onClose: () => void;
 }
 
 const BookListPanel: React.FC<BookListPanelProps> = ({ books, locationName, onClose }) => {
+    const navigate = useNavigate(); // Додано хук
+
     return (
         <div className={styles.panel}>
             <div className={styles.header}>
@@ -21,7 +24,11 @@ const BookListPanel: React.FC<BookListPanelProps> = ({ books, locationName, onCl
             <div className={styles.content}>
                 {books && books.length > 0 ? (
                     books.map((book) => (
-                        <div key={book.id} className={styles.bookItem}>
+                        <div
+                            key={book.id}
+                            className={styles.bookItem}
+                            onClick={() => navigate(`/books/${book.id}`)} // Додано рядок
+                        >
                             <h4>{book.name}</h4>
                             <p>Автор(и): {book.authors.map(a => a.full_name).join(', ')}</p>
                             <p>Рік: {book.year_of_publication}</p>

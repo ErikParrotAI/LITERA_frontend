@@ -6,6 +6,7 @@ import NotFound from "./pages/not-found.tsx";
 import UserPage from "./pages/UserPage/UserPage.tsx";
 import ProfilePage from "./components/ProfilePage/ProfilePage.tsx";
 import MapPage from "./pages/MapPage/MapPage.tsx";
+import BookDetail from './components/BookDetail/BookDetail';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
                 <Route path="profile" element={<UserPage/>}/>
                 <Route path="settings" element={<ProfilePage/>}/>
                 <Route path='*' element={<NotFound/>}/>
+                <Route path="books/:id" element={<BookDetail/>}/>
             </Route>
         </Routes>
     );

@@ -10,6 +10,7 @@ export interface FeatureProperties {
     address: string;
     work_schedule: string;
     instagram_link: string | null;
+    location_id: number;
 }
 
 export interface Geometry {

@@ -11,10 +11,15 @@ interface MapProps {
     geojson: FeatureCollection;
     onMarkerHover: (feature: Feature, point: { x: number; y: number }) => void;
     onMarkerLeave: () => void;
+    singleBookMode?: boolean;
 }
 
-const Map: React.FC<MapProps> = ({ geojson, onMarkerHover, onMarkerLeave }) => {
-    const mapContainerRef = useRef<HTMLDivElement>(null);
+const Map: React.FC<MapProps> = ({
+                                     geojson,
+                                     onMarkerHover,
+                                     onMarkerLeave,
+                                     singleBookMode = false
+                                 }) => {    const mapContainerRef = useRef<HTMLDivElement>(null);
     const mapRef = useRef<mapboxgl.Map | null>(null);
 
     useEffect(() => {
@@ -23,8 +28,11 @@ const Map: React.FC<MapProps> = ({ geojson, onMarkerHover, onMarkerLeave }) => {
         const map = new mapboxgl.Map({
             container: mapContainerRef.current,
             style: 'mapbox://styles/mapbox/streets-v12',
-            center: [24.030, 49.839],
-            zoom: 11.9,
+            center: singleBookMode && geojson.features[0]?.geometry?.coordinates ?
+                [geojson.features[0].geometry.coordinates[0],
+                    geojson.features[0].geometry.coordinates[1]] :
+                [24.030, 49.839],
+            zoom: singleBookMode ? 14 : 11.9,
         });
         mapRef.current = map;
 
@@ -80,13 +88,12 @@ const Map: React.FC<MapProps> = ({ geojson, onMarkerHover, onMarkerLeave }) => {
         };
     }, [geojson, onMarkerHover, onMarkerLeave]);
 
-    // Оновлення даних у джерелі при зміні geojson
-    // useEffect(() => {
-    //     if (mapRef.current && mapRef.current.getSource('locations')) {
-    //         const source = mapRef.current.getSource('locations') as mapboxgl.GeoJSONSource;
-    //         source.setData(geojson);
-    //     }
-    // }, [geojson]);
+    useEffect(() => {
+        if (mapRef.current && mapRef.current.getSource('locations')) {
+            const source = mapRef.current.getSource('locations') as mapboxgl.GeoJSONSource;
+            source.setData(geojson);
+        }
+    }, [geojson]);
 
     return <div ref={mapContainerRef} className={styles.mapContainer} />;
 };
