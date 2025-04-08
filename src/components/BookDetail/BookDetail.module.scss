@@ -17,73 +17,73 @@ $transition-speed: 0.3s;   // Швидкість переходів (hover то�
 $box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
 .bookDetail {
-    background-color: $color-paper;
-    padding: 20px;
-    border-radius: $border-radius;
-    box-shadow: $box-shadow;
-    transition: all $transition-speed ease-in-out;
+  background-color: $color-paper;
+  padding: 20px;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  transition: all $transition-speed ease-in-out;
 
-    h1 {
-        font-family: $font-headers;
-        font-size: 24px;
-        color: $color-text;
-        margin-bottom: 10px;
-    }
+  h1 {
+    font-family: $font-headers;
+    font-size: 24px;
+    color: $color-text;
+    margin-bottom: 10px;
+  }
 
-    h2 {
-        font-family: $font-base;
-        font-size: 18px;
-        color: $color-accent-dark;
-        margin-bottom: 8px;
-    }
+  h2 {
+    font-family: $font-base;
+    font-size: 18px;
+    color: $color-accent-dark;
+    margin-bottom: 8px;
+  }
 
-    p {
-        font-family: $font-base;
-        font-size: 16px;
-        color: $color-text;
-        margin-bottom: 6px;
-    }
+  p {
+    font-family: $font-base;
+    font-size: 16px;
+    color: $color-text;
+    margin-bottom: 6px;
+  }
 
-    .categories {
-        font-style: italic;
-        color: $color-accent;
-    }
+  .categories {
+    font-style: italic;
+    color: $color-accent;
+  }
 }
 
 // ---- Контейнер для компонента, що містить книжку та карту ----
 .bookDetailContainer {
-    display: flex;
-    flex-direction: row;
-    gap: 20px; /* Додаємо відстань між двома секціями */
-    align-items: flex-start; /* Вирівнюємо елементи по верхньому краю */
-    padding: 20px; /* Відступи по краях */
-    background-color: $color-bg; /* Фоновий колір для контейнера */
-    flex-wrap: wrap; /* Додаємо можливість адаптації елементів при зміні розміру */
+  display: flex;
+  flex-direction: row;
+  gap: 20px; /* Додаємо відстань між двома секціями */
+  align-items: flex-start; /* Вирівнюємо елементи по верхньому краю */
+  padding: 20px; /* Відступи по краях */
+  background-color: $color-bg; /* Фоновий колір для контейнера */
+  flex-wrap: wrap; /* Додаємо можливість адаптації елементів при зміні розміру */
 }
 
 // ---- Стилі для інформації про книжку ----
 .bookInfo {
-    flex: 1; /* Займає ліву частину */
-    padding: 20px;
-    max-width: 600px; /* Можна обмежити максимальну ширину секції */
-    background-color: $color-paper; /* Фоновий колір для секції з книжкою */
-    border-radius: $border-radius; /* Заокруглення */
-    box-shadow: $box-shadow; /* Тінь */
+  flex: 1; /* Займає ліву частину */
+  padding: 20px;
+  max-width: 600px; /* Можна обмежити максимальну ширину секції */
+  background-color: $color-paper; /* Фоновий колір для секції з книжкою */
+  border-radius: $border-radius; /* Заокруглення */
+  box-shadow: $box-shadow; /* Тінь */
 }
 
 // ---- Стилі для карти ----
 .mapContainer {
-    flex: 1; /* Карта займає праву частину */
-    width: 100%; /* Повна ширина */
-    height: 100%; /* Фіксована висота по замовчуванню */
-    border: 1px solid #ddd; /* Легкий бордер для карти */
-    border-radius: $border-radius; /* Заокруглення для карти */
-    box-sizing: border-box; /* Враховує падінг і бордер в загальний розмір */
+  flex: 1; /* Карта займає праву частину */
+  width: 100%; /* Повна ширина */
+  height: 100%; /* Фіксована висота по замовчуванню */
+  border: 1px solid #ddd; /* Легкий бордер для карти */
+  border-radius: $border-radius; /* Заокруглення для карти */
+  box-sizing: border-box; /* Враховує падінг і бордер в загальний розмір */
 }
 
 // Додаткове стилізування на мобільних пристроях
 @media (max-width: 768px) {
-    .bookDetailContainer {
-        flex-direction: column; /* Оформляємо в колонку для малих екранів */
-    }
+  .bookDetailContainer {
+    flex-direction: column; /* Оформляємо в колонку для малих екранів */
+  }
 }

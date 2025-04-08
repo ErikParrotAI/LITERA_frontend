@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './BookCard.module.scss';
+import { useNavigate } from 'react-router-dom';
 
-/** Локальні типи (без глобального інтерфейсу) */
 interface Author {
     full_name: string;
 }
@@ -20,20 +20,17 @@ interface BookCardProps {
 
 const BookCard: React.FC<BookCardProps> = ({ book }) => {
     const authorsList = book.authors.map(a => a.full_name).join(', ');
+    const navigate = useNavigate();
 
-    // Можливі фон-зображення
-    const backgroundImages = [
-        '/bg_image3.jpg',
-    ];
-    // Випадково вибираємо одне з них
-    const randomIndex = Math.floor(Math.random() * backgroundImages.length);
-    const randomBg = backgroundImages[randomIndex];
+    const handleClick = () => {
+        navigate(`/books/${book.id}`);
+    };
 
     return (
         <div
             className={styles.card}
-            /* Інлайн-стиль: підставляємо випадковий фон */
-            style={{ backgroundImage: `url(${randomBg})` }}
+            onClick={handleClick}
+            style={{ backgroundImage: `url('/bg_image3.jpg')` }}
         >
             <div className={styles.glassPanel}>
                 <div className={styles.bookTitle}>{book.name}</div>
