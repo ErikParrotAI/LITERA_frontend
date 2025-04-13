@@ -20,7 +20,7 @@ const BooksPage: React.FC = () => {
     }, []);
 
     const handleBookClick = (bookId: number) => {
-        navigate(`/book/${bookId}`);
+        navigate(`/books/${bookId}`);
     };
 
     if (isError) {
