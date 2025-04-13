@@ -87,14 +87,23 @@ const BookDetail: React.FC = () => {
                 <h2 className={styles.author}>
                     By {book.authors.map(author => author.full_name).join(', ')}
                 </h2>
-                <p className={styles.details}>
-                    Published in {book.year_of_publication}, Language: {book.language}, Pages: {book.number_of_pages}
-                </p>
                 {book.categories?.length > 0 && (
                     <p className={styles.categories}>
                         Categories: {book.categories.map(category => category.name).join(', ')}
                     </p>
                 )}
+
+                <div className={styles.detailsColumn}>
+                    <p>Language: {book.language}</p>
+                    {book.publishing && (
+                        <p>Publishing: {book.publishing.name}</p>
+                    )}
+                    <p>Published in {book.year_of_publication}</p>
+                    <p>Pages: {book.number_of_pages}</p>
+                    {book.location?.address && (
+                        <p>Address: {book.location.address}</p>
+                    )}
+                </div>
             </div>
 
             {geojson && (

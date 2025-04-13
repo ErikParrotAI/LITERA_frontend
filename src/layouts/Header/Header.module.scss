@@ -1,6 +1,8 @@
 @use '../../styles/variables' as *;
 
 .headerContainer {
+  background: rgb(220,183,134);
+  background: linear-gradient(90deg, rgba(220,183,134,1) 0%, rgba(239,229,213,1) 30%);
   display: flex;
   align-items: center;
   justify-content: space-between;

@@ -3,6 +3,8 @@
 
 /* Контейнер фільтрів: один ряд із перенесеннями, мінімалістичний */
 .filtersContainer {
+  background: rgb(205,185,159);
+  background: linear-gradient(360deg, rgba(205,185,159,1) 0%, rgba(239,229,213,1) 100%);
   display: flex;
   flex-wrap: wrap;        /* Щоб елементи переносилися при браку простору */
   align-items: center;

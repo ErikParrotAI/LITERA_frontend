@@ -1,7 +1,8 @@
 @use '../../styles/variables' as *;
 
 .pageContainer {
-  background-color: $color-bg;   /* Світло-бежевий чи інший фон */
+  background: rgb(205,185,159);
+  background: linear-gradient(360deg, rgba(205,185,159,1) 33%, rgba(239,229,213,1) 91%);
   color: $color-text;
   min-height: 100%;
   padding: 1rem;
