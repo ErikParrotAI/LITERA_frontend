@@ -21,7 +21,7 @@ const InfoPopup: React.FC<InfoPopupProps> = ({ feature, position, onShowBookList
     return (
         <div
             className={styles.infoPopup}
-            style={{ left: position.x - 150, top: position.y + 40 }}
+            style={{ left: position.x - 180, top: position.y - 50 }}
             onMouseEnter={onPopupEnter}
             onMouseLeave={onPopupLeave}
         >

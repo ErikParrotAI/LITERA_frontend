@@ -1,4 +1,4 @@
-@use 'sass:color' as c;          // Підключаємо модуль для коректного adjust
+@use 'sass:color' as c; // Підключаємо модуль для коректного adjust
 @use '../../styles/variables' as *;
 
 /* Контейнер фільтрів: один ряд із перенесеннями, мінімалістичний */
@@ -14,30 +14,38 @@
   padding: 0.5rem 1rem;
   border: 1px solid rgba($color-text, 0.3);
   border-radius: $border-radius;
-  font-family: $font-base;
+  font-family: "Gabriola", cursive;
+  font-size: 16px;
   color: $color-text;
   gap: 1rem;              /* Відступ між елементами */
-  background-color: transparent; /* Мінімалізм: без фону або легкий фон на ваш розсуд */
+  background: linear-gradient(
+                  to top,
+                  rgb(246, 234, 217),
+                  rgba(248, 248, 248, 0.94)
+  ); /* Мінімалізм: без фону або легкий фон на ваш розсуд */
 }
 
 /* Пошукова група */
 .searchGroup {
   display: flex;
   flex-direction: column;
+  margin-right: 40px;
   gap: 0.25rem;
   min-width: 300px;       /* Щоб поле пошуку не було зовсім вузьким */
 
   label {
-    font-size: 0.85rem;
+    font-size: 1.4rem;
     font-weight: 500;
     color: $color-text;
+    border-bottom: 2px;
   }
 
   input[type='text'] {
     padding: 0.35rem 0.5rem;
+    margin-bottom: 15px;
     border: 1px solid rgba($color-text, 0.3);
     border-radius: $border-radius;
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     color: $color-text;
     transition: border-color $transition-speed;
 
@@ -58,11 +66,11 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  width: 2rem;
-  height: 2rem;
+  margin-top: 1rem;
+  width: 2.3rem;
+  height: 2.3rem;
   border: 1px solid rgba($color-text, 0.3);
-  border-radius: 50%;
+  border-radius: 20%;
   cursor: pointer;
   background-color: transparent;
   transition: background-color $transition-speed;
@@ -72,7 +80,7 @@
   }
 
   i {
-    font-size: 1rem;      /* Розмір іконки */
+    font-size: 1.3rem;      /* Розмір іконки */
     color: $color-text;   /* Колір іконки */
   }
 }
@@ -91,20 +99,22 @@
 
 /* Сортування (компактний select) */
 .sortSelectGroup {
+  margin-left: 40px;
   display: flex;
   margin-bottom: 1rem;
   flex-direction: column;
   gap: 0.25rem;
 
   label {
-    font-size: 0.8rem;
+    font-size: 1.4rem;
     font-weight: 500;
     color: $color-text;
   }
 
   select {
     padding: 0.35rem 0.5rem;
-    font-size: 0.85rem;
+    width: 200px;
+    font-size: 1.2rem;
     border: 1px solid rgba($color-text, 0.3);
     border-radius: $border-radius;
     color: $color-text;
@@ -118,12 +128,13 @@
 
 /* Група років, сторінок тощо */
 .filterGroup {
+  margin-left: 100px;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
 
   label {
-    font-size: 0.8rem;
+    font-size: 1.4rem;
     font-weight: 500;
     color: $color-text;
   }
@@ -131,14 +142,14 @@
   .inputsAndSlider {
     display: flex;
     align-items: center;
-    gap: 0.5rem; /* Додатковий відступ між полями від/до та повзунком */
+    gap: 1rem; /* Додатковий відступ між полями від/до та повзунком */
   }
 
   input[type='number'] {
     width: 60px;
     padding: 0.3rem;
-    margin: 0 0.5rem 0.5rem 0.5rem;
-    font-size: 0.85rem;
+    margin: 0 0.20rem 0.75rem 0.20rem;
+    font-size: 1.2rem;
     text-align: center;
     border: 1px solid rgba($color-text, 0.3);
     border-radius: $border-radius;

@@ -12,6 +12,7 @@ export interface Location {
     latitude: number;
     address: string;
     work_schedule: string;
+    instagram_link: string;
 }
 
 export interface Author {
