@@ -1,33 +1,44 @@
 @use '../../styles/_variables' as *;
 
-/* Основний контейнер панелі */
 .panel {
   width: 40%;
   min-width: 300px;
   max-width: 600px;
-  /* Optional: Add a texture image for more depth */
-  background-size: cover;
+  font-family: "Gabriola", cursive;
+  // Темніший "glassmorphism" фон із більшим насиченням
   background: linear-gradient(
-                  to bottom right,
-                  rgba(255, 234, 221, 0.5),
-                  rgba(243, 227, 206, 0.08)
-  );
-  //url('../../../public/bg_image5.jpg') center;
-  background-blend-mode: overlay;
-  backdrop-filter: blur(15px) saturate(1.5);
-  -webkit-backdrop-filter: blur(15px) saturate(1.5);
-  border: 3px solid rgba(198, 197, 172, 0.4);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  color: #5c4433;
+                  to bottom,
+                  rgb(246, 234, 217),
+                  rgba(248, 248, 248, 0.94)
+  ); /* Мінімалізм: без фону або легкий фон на ваш розсуд */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border: 2px solid rgba($color-accent, 0.5);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  color: #fff;
   padding: 1rem;
   margin-left: 1rem;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+
+  // Анімація появи збоку
+  animation: panelSlideIn 0.5s ease forwards;
+
+  @keyframes panelSlideIn {
+    0% {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
 }
 
-/* Шапка панелі */
 .header {
   display: flex;
   justify-content: space-between;
@@ -35,34 +46,35 @@
   margin-bottom: 1rem;
 
   h2 {
-    color: #d17755;
-    margin: 0;
-    font-size: 1.5rem;
+    color: #7e675c; // Легкий теплий відтінок
+    margin: 0.5rem 0 0 0;
+    font-size: 2rem;
   }
 }
 
-/* Кнопка «Закрити» */
 .closeButton {
-  background-color: #d17755;
+  background-color: rgba($color-accent, 0.7);
   border: none;
   color: #fff;
   padding: 6px 12px;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 18px;
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: #ecb8a7;
+    background-color: rgba($color-accent, 1);
   }
 }
 
-/* Зона вмісту панелі */
 .content {
   .bookItem {
-    background-color: rgba(198, 197, 172, 0.4);  /* Lighter book blocks */
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    // Темніший фон для книжкових карток
+    background: linear-gradient(
+                    to bottom ,
+                    rgb(73, 67, 67),
+                    rgba(126, 112, 112, 0.94)
+    );
     margin-bottom: 1rem;
     padding: 0.75rem;
     border-radius: 6px;
@@ -71,17 +83,18 @@
 
     &:hover {
       transform: scale(1.03);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     }
 
     h4 {
-      margin: 0 0 0.25rem 0;
-      color: #d17755;
+      font-size: 1.2rem;
+      margin: 0.25rem 0 0.25rem 0;
+      color: #d8b8a6; // Теплий відтінок для заголовку\n
     }
 
     p {
-      margin: 0.25rem 0;
-      font-size: 14px;
+      margin: 0.130rem 0;
     }
   }
 }
+

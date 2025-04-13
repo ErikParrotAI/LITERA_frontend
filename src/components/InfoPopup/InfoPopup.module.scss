@@ -3,47 +3,76 @@
 
 .infoPopup {
   position: absolute;
-  background-color: #000;
-  padding: 10px;
+  background: linear-gradient(
+                  to bottom right,
+                  rgb(204, 198, 198),
+                  rgba(225, 217, 217, 0.94)
+  );
+  padding: 8px;
   z-index: 100;
-  font-size: 12px;
-  border-radius: 5px;
-  max-width: 350px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-  pointer-events: auto; /* Дозволяємо взаємодію */
+  font-size: 17px;
+  font-family: "Gabriola", cursive;
+  border-radius: 12px;
+  max-width: 400px;
+  box-shadow: 0 4px 12px rgba(135, 78, 78, 0.5);
+  pointer-events: auto;
+  color: #171212; // робимо текст білим
+
+  // Легка анімація появи popup
+  animation: popupFadeIn 0.3s ease;
+
+  @keyframes popupFadeIn {
+    0% { opacity: 0; transform: translateY(-4px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
 
   table {
     width: 100%;
     border-collapse: collapse;
 
     th {
-      background-color: $card-background;
-      color: $accent;
+      background-color: rgba(248, 248, 248, 0.94);
+      color: #372c2c;
       padding: 5px;
-      text-align: left;
+      font-weight: bold;
+      text-align: center;
+      border-radius: 4px 4px 0 0;
+      border: 2px solid $border-color;
     }
 
     td {
+      background-color: rgba(250, 242, 240, 0.8);
       padding: 5px;
-      border-bottom: 1px solid $border-color;
-      color: $text-color;
+      border: 2px solid $border-color;
+      color: #251a1a;
+      &:first-child {
+        width: 30%;
+      }
+      &:nth-child(2) {
+        width: 70%;
+      }
     }
 
     tr:hover {
-      background-color: $hover-bg;
+      background-color: rgba(124, 117, 117, 0.8);
     }
   }
-}
 
-.icon {
-  width: 15px;
-  height: 15px;
-  vertical-align: middle;
-  margin-right: 4px;
-}
+  .icon {
+    width: 15px;
+    height: 15px;
+    vertical-align: middle;
+    margin-left: 2px;
+    margin-right: 8px;
+  }
 
-.link {
-  color: white !important;
-  text-decoration: none;
-  font-weight: bold;
+  .link {
+    color: #251a1a;
+    text-decoration: none;
+    font-weight: normal;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }

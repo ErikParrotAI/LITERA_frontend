@@ -1,10 +1,27 @@
-// src/components/Map/Map.module.scss
 @use '../../styles/_variables' as *;
 
 .mapContainer {
   width: 100%;
   height: 600px;
-  border: 3px solid $color-accent;
-  border-radius: 8px;
+  border: 2px solid rgba($color-accent, 0.6);
+  border-radius: 12px;
   position: relative;
+  overflow: hidden;
+
+  // Легка тінь
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+
+  // Анімація при появі
+  animation: slideIn 0.5s ease forwards;
+
+  @keyframes slideIn {
+    0% {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
 }
