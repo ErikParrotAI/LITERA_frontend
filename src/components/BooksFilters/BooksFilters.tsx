@@ -58,29 +58,31 @@ const BooksFilters: React.FC<IBooksFiltersProps> = ({
             <div className={styles.searchAndButton}>
                 <div className={styles.searchGroup}>
                     <label>Пошук</label>
-                    <input
-                        type="text"
-                        placeholder="Ключове слово..."
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                    />
-                </div>
+                    <div className={styles.searchInputWrapper}>
+                        <input
+                            type="text"
+                            placeholder="Ключове слово..."
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                        />
+                        {showSubmitButton && (
+                            <button
+                                className={styles.submitBtn}
+                                onClick={() => onSubmit?.(currentParams)}
+                            >
+                                Застосувати
+                            </button>
+                        )}
 
-                {showSubmitButton && (
-                    <button
-                        className={styles.submitBtn}
-                        onClick={() => onSubmit?.(currentParams)}
-                    >
-                        Застосувати
-                    </button>
-                )}
+                        <div
+                            className={styles.filterIconBtn}
+                            onClick={() => setShowFilters(!showFilters)}
+                            title="Додаткові фільтри"
+                        >
+                            <i className="fa fa-filter" aria-hidden="true" />
+                        </div>
 
-                <div
-                    className={styles.filterIconBtn}
-                    onClick={() => setShowFilters(!showFilters)}
-                    title="Додаткові фільтри"
-                >
-                    <i className="fa fa-filter" aria-hidden="true" />
+                    </div>
                 </div>
             </div>
 

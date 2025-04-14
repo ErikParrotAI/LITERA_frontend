@@ -3,8 +3,6 @@
 
 /* Контейнер фільтрів: один ряд із перенесеннями, мінімалістичний */
 .filtersContainer {
-  background: rgb(205,185,159);
-  background: linear-gradient(360deg, rgba(205,185,159,1) 0%, rgba(239,229,213,1) 100%);
   display: flex;
   flex-wrap: wrap;        /* Щоб елементи переносилися при браку простору */
   align-items: center;
@@ -33,10 +31,9 @@
   flex-direction: column;
   margin-right: 40px;
   gap: 0.25rem;
-  min-width: 300px;       /* Щоб поле пошуку не було зовсім вузьким */
 
   label {
-    font-size: 1.4rem;
+    font-size: 1rem;
     font-weight: 500;
     color: $color-text;
     border-bottom: 2px;
@@ -47,7 +44,7 @@
     margin-bottom: 15px;
     border: 1px solid rgba($color-text, 0.3);
     border-radius: $border-radius;
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: $color-text;
     transition: border-color $transition-speed;
 
@@ -66,11 +63,11 @@
 /* Іконка-фільтр, замінює кнопку */
 .filterIconBtn {
   display: inline-flex;
+  margin-left: 0.5rem;
   align-items: center;
   justify-content: center;
-  margin-top: 1rem;
-  width: 2.3rem;
-  height: 2.3rem;
+  width: 2rem;
+  height: 2rem;
   border: 1px solid rgba($color-text, 0.3);
   border-radius: 20%;
   cursor: pointer;
@@ -82,7 +79,7 @@
   }
 
   i {
-    font-size: 1.3rem;      /* Розмір іконки */
+    font-size: 1rem;      /* Розмір іконки */
     color: $color-text;   /* Колір іконки */
   }
 }
@@ -103,20 +100,18 @@
 .sortSelectGroup {
   margin-left: 40px;
   display: flex;
-  margin-bottom: 1rem;
   flex-direction: column;
   gap: 0.25rem;
 
   label {
-    font-size: 1.4rem;
+    font-size: 1rem;
     font-weight: 500;
     color: $color-text;
   }
 
   select {
-    padding: 0.35rem 0.5rem;
     width: 200px;
-    font-size: 1.2rem;
+    font-size: 1rem;
     border: 1px solid rgba($color-text, 0.3);
     border-radius: $border-radius;
     color: $color-text;
@@ -136,7 +131,7 @@
   gap: 0.25rem;
 
   label {
-    font-size: 1.4rem;
+    font-size: 1rem;
     font-weight: 500;
     color: $color-text;
   }
@@ -149,9 +144,8 @@
 
   input[type='number'] {
     width: 80px;
-    padding: 0.3rem;
     margin: 0 0.20rem 0.75rem 0.20rem;
-    font-size: 1.2rem;
+    font-size: 1rem;
     text-align: center;
     border: 1px solid rgba($color-text, 0.3);
     border-radius: $border-radius;
@@ -191,8 +185,9 @@
 
 .submitBtn {
   margin-top: 1rem;
-  padding: 0.4rem 1.2rem;
-  font-size: 1.2rem;
+  margin-left: 0.5rem; /* додано */
+  padding: 0.4rem;
+  font-size: 1rem;
   font-family: inherit;
   background-color: $color-accent;
   border: none;
