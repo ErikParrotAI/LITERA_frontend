@@ -188,3 +188,20 @@
   border-radius: 50%;
   cursor: pointer;
 }
+
+.submitBtn {
+  margin-top: 1rem;
+  padding: 0.4rem 1.2rem;
+  font-size: 1.2rem;
+  font-family: inherit;
+  background-color: $color-accent;
+  border: none;
+  border-radius: $border-radius;
+  color: white;
+  cursor: pointer;
+  transition: background-color $transition-speed;
+
+  &:hover {
+    background-color: $color-accent-dark;
+  }
+}

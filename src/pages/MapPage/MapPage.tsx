@@ -131,16 +131,20 @@ const MapPage: React.FC = () => {
         setSelectedLocationId(null);
     }, []);
 
+    const [pendingParams, setPendingParams] = useState<IBookQueryParams>(bookQueryParams);
+
     return (
         <div className={styles.pageContainer}>
             {/* Фільтри книг */}
             <BooksFilters
                 initialParams={bookQueryParams}
-                onChange={(newParams) => {
-                    setSearch(newParams.search || '');
-                    setOrdering(newParams.ordering || '');
-                    setPagesRange([newParams.min_pages ?? 1, newParams.max_pages ?? 2000]);
-                    setYearsRange([newParams.min_year ?? 1000, newParams.max_year ?? 2025]);
+                showSubmitButton={true}
+                onChange={(newParams) => setPendingParams(newParams)}
+                onSubmit={(params) => {
+                    setSearch(params.search || '');
+                    setOrdering(params.ordering || '');
+                    setPagesRange([params.min_pages ?? 1, params.max_pages ?? 2000]);
+                    setYearsRange([params.min_year ?? 1000, params.max_year ?? 2025]);
                 }}
             />
 

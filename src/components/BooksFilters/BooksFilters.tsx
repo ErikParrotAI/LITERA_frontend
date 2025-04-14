@@ -6,6 +6,8 @@ import { IBookQueryParams } from '../../hooks/useBooks';
 interface IBooksFiltersProps {
     initialParams?: IBookQueryParams;
     onChange: (params: IBookQueryParams) => void;
+    onSubmit?: (params: IBookQueryParams) => void;
+    showSubmitButton?: boolean;
     globalMinYear?: number;
     globalMaxYear?: number;
     globalMinPages?: number;
@@ -15,98 +17,90 @@ interface IBooksFiltersProps {
 const BooksFilters: React.FC<IBooksFiltersProps> = ({
                                                         initialParams,
                                                         onChange,
+                                                        onSubmit,
+                                                        showSubmitButton = false,
                                                         globalMinYear = 1000,
                                                         globalMaxYear = 2025,
                                                         globalMinPages = 1,
                                                         globalMaxPages = 2000,
                                                     }) => {
-    // Пошук
     const [search, setSearch] = useState(initialParams?.search || '');
-
-    // Рік [від, до]
     const [yearRange, setYearRange] = useState<[number, number]>([
         initialParams?.min_year || globalMinYear,
         initialParams?.max_year || globalMaxYear,
     ]);
-
-    // Сторінок [від, до]
     const [pagesRange, setPagesRange] = useState<[number, number]>([
         initialParams?.min_pages || globalMinPages,
         initialParams?.max_pages || globalMaxPages,
     ]);
-
-    // Сортування (select)
     const [ordering, setOrdering] = useState(initialParams?.ordering || '');
-    const sortingOptions = [
-        { label: 'Без сортування', value: '' },
-        { label: 'Назва (А-Я)', value: 'name' },
-        { label: 'Назва (Я-А)', value: '-name' },
-        { label: 'Рік ↑', value: 'year_of_publication' },
-        { label: 'Рік ↓', value: '-year_of_publication' },
-        { label: 'Сторінки ↑', value: 'number_of_pages' },
-        { label: 'Сторінки ↓', value: '-number_of_pages' },
-    ];
-
-    // Прапорець, чи показувати інші фільтри
     const [showFilters, setShowFilters] = useState(false);
 
-    // Дебаунс виклику onChange
+    const currentParams: IBookQueryParams = {
+        search: search || undefined,
+        min_year: yearRange[0],
+        max_year: yearRange[1],
+        min_pages: pagesRange[0],
+        max_pages: pagesRange[1],
+        ordering: ordering || undefined,
+    };
+
     useEffect(() => {
+        if (showSubmitButton) return;
         const timer = setTimeout(() => {
-            onChange({
-                search: search || undefined,
-                min_year: yearRange[0],
-                max_year: yearRange[1],
-                min_pages: pagesRange[0],
-                max_pages: pagesRange[1],
-                ordering: ordering || undefined,
-            });
+            onChange(currentParams);
         }, 300);
         return () => clearTimeout(timer);
-    }, [search, yearRange, pagesRange, ordering, onChange]);
+    }, [search, yearRange, pagesRange, ordering, showSubmitButton]);
 
     return (
         <div className={styles.filtersContainer}>
+            <div className={styles.searchAndButton}>
+                <div className={styles.searchGroup}>
+                    <label>Пошук</label>
+                    <input
+                        type="text"
+                        placeholder="Ключове слово..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
+                </div>
 
-            {/** Поле пошуку */}
-            <div className={styles.searchGroup}>
-                <label>Пошук</label>
-                <input
-                    type="text"
-                    placeholder="Ключове слово..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                />
+                {showSubmitButton && (
+                    <button
+                        className={styles.submitBtn}
+                        onClick={() => onSubmit?.(currentParams)}
+                    >
+                        Застосувати
+                    </button>
+                )}
+
+                <div
+                    className={styles.filterIconBtn}
+                    onClick={() => setShowFilters(!showFilters)}
+                    title="Додаткові фільтри"
+                >
+                    <i className="fa fa-filter" aria-hidden="true" />
+                </div>
             </div>
 
-            {/** Іконка-фільтр (замість кнопки) */}
-            <div
-                className={styles.filterIconBtn}
-                onClick={() => setShowFilters(!showFilters)}
-            >
-                {/* Використовуємо іконку Font Awesome fa-filter як приклад */}
-                <i className="fa fa-filter" aria-hidden="true" />
-            </div>
-
-            {/** Решта фільтрів */}
             <div className={showFilters ? styles.visibleFilters : styles.hiddenFilters}>
-
-                {/** Сортування */}
                 <div className={styles.sortSelectGroup}>
                     <label>Сортування</label>
                     <select
                         value={ordering}
                         onChange={(e) => setOrdering(e.target.value)}
                     >
-                        {sortingOptions.map((opt) => (
-                            <option key={opt.value} value={opt.value}>
-                                {opt.label}
-                            </option>
-                        ))}
+                        <option value="">Без сортування</option>
+                        <option value="name">Назва (А-Я)</option>
+                        <option value="-name">Назва (Я-А)</option>
+                        <option value="year_of_publication">Рік ↑</option>
+                        <option value="-year_of_publication">Рік ↓</option>
+                        <option value="number_of_pages">Сторінки ↑</option>
+                        <option value="-number_of_pages">Сторінки ↓</option>
                     </select>
                 </div>
 
-                {/** Роки */}
                 <div className={styles.filterGroup}>
                     <label>Роки</label>
                     <div className="inputsAndSlider">
@@ -128,12 +122,10 @@ const BooksFilters: React.FC<IBooksFiltersProps> = ({
                             step={1}
                             min={globalMinYear}
                             max={globalMaxYear}
-                            values={[yearRange[0], yearRange[1]]}
+                            values={yearRange}
                             onChange={(vals) => setYearRange([vals[0], vals[1]])}
                             renderTrack={({ props, children }) => (
-                                <div {...props} className={styles.track}>
-                                    {children}
-                                </div>
+                                <div {...props} className={styles.track}>{children}</div>
                             )}
                             renderThumb={({ props }) => (
                                 <div {...props} className={styles.thumb} />
@@ -142,7 +134,6 @@ const BooksFilters: React.FC<IBooksFiltersProps> = ({
                     </div>
                 </div>
 
-                {/** Сторінки */}
                 <div className={styles.filterGroup}>
                     <label>Сторінки</label>
                     <div className="inputsAndSlider">
@@ -164,12 +155,10 @@ const BooksFilters: React.FC<IBooksFiltersProps> = ({
                             step={1}
                             min={globalMinPages}
                             max={globalMaxPages}
-                            values={[pagesRange[0], pagesRange[1]]}
+                            values={pagesRange}
                             onChange={(vals) => setPagesRange([vals[0], vals[1]])}
                             renderTrack={({ props, children }) => (
-                                <div {...props} className={styles.track}>
-                                    {children}
-                                </div>
+                                <div {...props} className={styles.track}>{children}</div>
                             )}
                             renderThumb={({ props }) => (
                                 <div {...props} className={styles.thumb} />
